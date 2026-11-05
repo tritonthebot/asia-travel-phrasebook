@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
 <link rel="icon" href="data:,">
 <title>Asia Travel Phrasebook &amp; Cheat Sheet</title>
 <style>
@@ -293,6 +294,7 @@ button,input,select{-webkit-tap-highlight-color:transparent}
       <button class="row-btn" id="testVoice">Test voice</button>
       <div class="row-sub" id="voiceStatus"></div>
     </div>
+    <p class="footnote">Pronunciation streams live, so Listen needs a connection. Still silent? Check your volume, and if your iPhone's silent switch is on, flip it off — it mutes the backup device voice.</p>
     <p class="group-label">Remembered in this browser</p>
     <div class="group">
       <div class="row-col"><strong>Saved on this device</strong><span>Your country, favourites and speaking speed are remembered in this browser, so you do not have to pick again next visit.</span></div>
@@ -643,15 +645,32 @@ function $(s){return document.querySelector(s)}
 function country(){return COUNTRIES.find(c=>c.id===state.country)}
 function toast(msg){const t=$('#toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',1800)}
 
-let ttsAudio=null;
+let ttsAudio=null,ttsWatchdog=null,speakSeq=0;
 function ttsLangCode(lang){
   const l=(lang||country().lang||'en-SG').toLowerCase();
   if(l.indexOf('fil')===0||l.indexOf('tl')===0) return 'tl';
   return l.slice(0,2);
 }
 function setVoiceStatus(msg){ const vs=document.querySelector('#voiceStatus'); if(vs) vs.textContent=msg; }
+function getTtsAudio(){
+  if(ttsAudio) return ttsAudio;
+  /* One persistent element, reused for every phrase: iOS only reliably lets
+     an element keep playing after a tap if it is the same element that was
+     started by a tap, and referrerpolicy="no-referrer" matters because
+     Google's TTS endpoint returns 404 to any request carrying a Referer. */
+  const a=document.createElement('audio');
+  a.preload='auto';
+  a.setAttribute('referrerpolicy','no-referrer');
+  a.setAttribute('playsinline','');
+  try{ a.referrerPolicy='no-referrer'; }catch(e){}
+  ttsAudio=a;
+  return a;
+}
+function clearTtsWatchdog(){ if(ttsWatchdog){ clearTimeout(ttsWatchdog); ttsWatchdog=null; } }
 function stopAudio(){
-  if(ttsAudio){ try{ ttsAudio.pause(); }catch(e){} ttsAudio=null; }
+  speakSeq++;
+  clearTtsWatchdog();
+  if(ttsAudio){ try{ ttsAudio.pause(); }catch(e){} ttsAudio.onplaying=null; ttsAudio.onerror=null; }
   if('speechSynthesis' in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
 }
 function deviceSpeak(text,lang,rate){
@@ -678,24 +697,38 @@ function speak(text,lang){
   const rate=parseFloat(((document.querySelector('#speedSel')||{}).value)||savedSpeed||0.9)||0.9;
   const clean=String(text).replace(/\//g,' ').replace(/\s+/g,' ').trim();
   stopAudio();
+  const seq=speakSeq;
   const tl=ttsLangCode(fullLang);
   const clip=clean.length>180?clean.slice(0,180):clean;
-  const url='https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl='+encodeURIComponent(tl)+'&q='+encodeURIComponent(clip);
-  let fellBack=false;
-  function fallback(){ if(fellBack) return; fellBack=true; deviceSpeak(clean,fullLang,rate); }
-  try{
-    const audio=new Audio();
-    audio.preload='auto';
-    ttsAudio=audio;
+  /* Both hosts serve the same Google TTS MP3. Requests must carry no Referer
+     (see the meta tag in <head> and getTtsAudio) or Google returns 404 HTML
+     instead of audio — that 404 was why Listen was silent in the browser. */
+  const hosts=[
+    'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=',
+    'https://translate.googleapis.com/translate_tts?ie=UTF-8&client=tw-ob&tl='
+  ];
+  let hostIdx=0, settled=false;
+  function fallback(){ if(settled||seq!==speakSeq) return; settled=true; clearTtsWatchdog(); deviceSpeak(clean,fullLang,rate); }
+  function attempt(){
+    if(settled||seq!==speakSeq) return;
+    if(hostIdx>=hosts.length){ fallback(); return; }
+    const url=hosts[hostIdx++]+encodeURIComponent(tl)+'&q='+encodeURIComponent(clip);
+    const audio=getTtsAudio();
+    audio.onplaying=function(){ if(seq!==speakSeq) return; settled=true; clearTtsWatchdog(); setVoiceStatus('Playing native pronunciation. Tap again to replay.'); };
+    audio.onerror=function(){ if(seq!==speakSeq||settled) return; attempt(); };
+    try{ audio.pause(); }catch(e){}
     audio.src=url;
     try{ audio.playbackRate=rate; if('preservesPitch' in audio) audio.preservesPitch=true; }catch(e){}
-    audio.onerror=function(){ fallback(); };
     setVoiceStatus('Playing…');
-    const pr=audio.play();
-    if(pr && typeof pr.catch==='function'){
-      pr.then(function(){ setVoiceStatus('Playing native pronunciation. Tap again to replay.'); }).catch(function(){ fallback(); });
-    }
-  }catch(e){ fallback(); }
+    let pr=null;
+    try{ audio.load(); pr=audio.play(); }catch(e){ attempt(); return; }
+    if(pr && typeof pr.catch==='function'){ pr.catch(function(){ if(seq===speakSeq&&!settled) attempt(); }); }
+    /* Watchdog: if the clip has not actually started within 4s, move on to
+       the next host / device voice instead of sitting silent. */
+    clearTtsWatchdog();
+    ttsWatchdog=setTimeout(function(){ if(seq!==speakSeq||settled) return; if(audio.paused||audio.readyState<3) attempt(); },4000);
+  }
+  attempt();
 }
 if('speechSynthesis' in window){ try{ window.speechSynthesis.getVoices(); window.speechSynthesis.onvoiceschanged=function(){ try{ window.speechSynthesis.getVoices(); }catch(e){} }; }catch(e){} }
 
