@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Asia Travel Phrasebook &amp; Cheat Sheet</title>
+<style>
+:root{color-scheme:light dark;--bg:#F2F2F7;--surface:#fff;--surface2:#fff;--label:#000;--secondary:#3C3C43;--muted:#8E8E93;--sep:rgba(60,60,67,.12);--fill:rgba(120,120,128,.12);--fill2:rgba(120,120,128,.08);--blue:#007AFF;--green:#34C759;--orange:#FF9500;--red:#FF3B30;--nav:rgba(249,249,249,.82);--tab:rgba(249,249,249,.92);--radius:12px;--maxw:720px;--pad:16px;--pad-sm:12px}
+@media(prefers-color-scheme:dark){:root{--bg:#000;--surface:#1C1C1E;--surface2:#2C2C2E;--label:#fff;--secondary:#EBEBF5;--muted:#8E8E93;--sep:rgba(84,84,88,.65);--fill:rgba(120,120,128,.24);--fill2:rgba(120,120,128,.16);--nav:rgba(28,28,30,.82);--tab:rgba(28,28,30,.92)}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;background:var(--bg);color:var(--label);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}input,select{font:inherit}
+.phone{width:100%;max-width:var(--maxw);margin:0 auto;min-height:100vh;min-height:100dvh;padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+/* NAV BAR */
+.nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px max(var(--pad),env(safe-area-inset-right)) 10px max(var(--pad),env(safe-area-inset-left));padding-top:max(10px,env(safe-area-inset-top));background:var(--nav);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:.5px solid var(--sep)}
+.nav-country{display:flex;align-items:center;gap:7px;font-weight:600;font-size:17px;letter-spacing:-.02em;padding:6px 4px;min-width:0;max-width:70%}
+.nav-country #navCountryName{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-country .flag{font-size:20px}.nav-country .chev{color:var(--muted);font-size:20px;line-height:1}
+.nav-actions{display:flex;gap:8px}
+.icon-circle{width:32px;height:32px;border-radius:50%;background:var(--fill);display:grid;place-items:center;font-weight:700;font-size:16px;color:var(--blue)}
+.icon-circle svg{width:18px;height:18px}
+/* VIEWS */
+.view{display:none;padding:0 max(var(--pad),env(safe-area-inset-right)) 0 max(var(--pad),env(safe-area-inset-left))}.view.active{display:block}
+.large-title{padding:18px 4px 10px}.large-title h1{font-size:34px;line-height:1.05;letter-spacing:-.03em;margin:0;font-weight:800}
+.large-title p{color:var(--muted);font-size:15px;margin:6px 0 0}
+.large-title.compact h1{font-size:32px}.eyebrow{font-size:12px!important;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)!important;margin:0 0 4px!important}
+/* GROUPED LIST - iOS */
+.group-label{font-size:13px;font-weight:400;color:var(--muted);text-transform:uppercase;letter-spacing:.02em;margin:22px 16px 6px}
+.group{background:var(--surface);border-radius:12px;overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;padding:12px 16px;min-height:52px;width:100%;text-align:left;position:relative}
+.row+.row,.row-btn+.row,.row+.row-btn{border-top:.5px solid var(--sep)}
+.row .flag{font-size:26px;line-height:1;flex:0 0 auto}
+.row-main{flex:1;min-width:0}.row-main strong{display:block;font-size:17px;font-weight:400;letter-spacing:-.01em}.row-main span{display:block;font-size:13px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.check{color:var(--blue);font-size:18px;font-weight:700}
+.row .chev{color:#C7C7CC;font-size:20px}
+.cur-badge{font-size:13px;color:var(--muted)}
+.footnote{font-size:13px;color:var(--muted);margin:8px 16px 0;line-height:1.5}
+/* SEARCH + CHIPS */
+.searchbar{display:flex;align-items:center;gap:6px;background:var(--fill);border-radius:10px;padding:8px 10px;margin:6px 0 10px}
+.searchbar svg{width:16px;height:16px;color:var(--muted);flex:0 0 auto}
+.searchbar input{flex:1;border:0;outline:0;background:transparent;font-size:17px;color:var(--label);min-width:0}
+.searchbar input::placeholder{color:var(--muted)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.chips::-webkit-scrollbar{display:none}
+.cat{flex:0 0 auto;padding:7px 14px;border-radius:999px;background:var(--surface);font-size:14px;font-weight:600;color:var(--label);box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.cat.active{background:var(--label);color:var(--bg)}
+/* PHRASES as grouped rows */
+.phrase-group{background:var(--surface);border-radius:12px;overflow:hidden}
+.phrase{padding:14px 16px;position:relative}
+.phrase+.phrase{border-top:.5px solid var(--sep)}
+.phrase .en{font-size:13px;color:var(--muted);font-weight:600;padding-right:110px}
+.phrase .local{font-size:20px;font-weight:600;letter-spacing:-.01em;line-height:1.3;margin-top:2px;padding-right:8px;word-break:break-word}
+.phrase .roman{font-size:14px;color:var(--muted);margin-top:1px}
+.phrase .note{font-size:13px;color:var(--secondary);background:var(--fill2);border-radius:8px;padding:8px 10px;margin-top:10px;line-height:1.5}
+.phrase-actions{position:absolute;top:12px;right:12px;display:flex;gap:6px}
+.iconbtn{width:34px;height:34px;border-radius:50%;background:var(--fill);display:grid;place-items:center;font-size:15px;color:var(--label)}
+.iconbtn.primary{background:var(--blue);color:#fff}
+.iconbtn.fav.active{background:#FFCC00;color:#000}
+.phrase-foot{display:flex;gap:8px;margin-top:10px;align-items:center}
+.textbtn{font-size:15px;font-weight:600;color:var(--blue);padding:4px 0}
+.cat-tag{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.section-mini{margin:18px 4px 8px}.section-mini h2{font-size:22px;letter-spacing:-.02em;margin:0}.section-mini p{color:var(--muted);font-size:14px;margin:4px 0 0}
+.callout{background:var(--surface);border-radius:12px;padding:16px;margin-bottom:12px}.callout h3{margin:0 0 6px;font-size:17px}.callout p{margin:0;color:var(--secondary);font-size:15px;line-height:1.55}
+.empty{padding:28px 16px;text-align:center;color:var(--muted);background:var(--surface);border-radius:12px;font-size:15px}
+.empty p{margin:0 0 6px;line-height:1.5}
+.empty .gt-link{display:inline-block;margin-top:10px;background:var(--blue);color:#fff;padding:12px 16px;border-radius:12px;font-weight:600;font-size:16px;text-decoration:none;max-width:100%;overflow-wrap:anywhere}
+.empty .gt-link:active{opacity:.85}
+/* NUMBERS */
+.num-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:560px){.num-grid{grid-template-columns:repeat(3,1fr)}}
+.num-card{background:var(--surface);border-radius:12px;padding:14px;text-align:center}
+.num-card .n{font-size:22px;font-weight:700;color:var(--blue)}.num-card .local{font-weight:600;font-size:16px;margin-top:2px}.num-card .roman{font-size:12px;color:var(--muted)}
+.num-card button{margin-top:8px;width:100%;border-radius:8px;background:var(--fill);padding:8px;font-weight:600;font-size:14px}
+.num-card button.listen{background:var(--blue);color:#fff}
+.money-card{background:#FFF8E1}@media(prefers-color-scheme:dark){.money-card{background:#2A2410}}
+/* CONVERTER */
+.field{padding:12px 16px}.field+.field{border-top:.5px solid var(--sep)}
+.field label{font-size:13px;color:var(--muted);display:block}
+.field input,.field select{width:100%;border:0;outline:0;background:transparent;font-size:22px;font-weight:600;color:var(--label);padding:4px 0 0;appearance:none}
+.field select{font-size:17px;font-weight:500}
+.swap-row{display:flex;justify-content:center;padding:6px;background:var(--bg)}
+.swap{width:36px;height:36px;border-radius:50%;background:var(--surface);color:var(--blue);font-size:17px;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.result-card{background:var(--blue);color:#fff;border-radius:12px;padding:18px 16px;margin-top:14px}
+.result-card .big{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.2;word-break:break-word}
+.result-card p{margin:6px 0 0;font-size:13px;opacity:.88;line-height:1.5}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.quick button{background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:600;font-size:15px}
+.primary-btn{width:100%;background:var(--blue);color:#fff;border-radius:12px;padding:14px;font-weight:600;font-size:17px;margin-top:14px}
+.status{font-size:13px;color:var(--muted);text-align:center;margin-top:8px}
+.rate-row{display:flex;justify-content:space-between;gap:12px;padding:12px 16px}.rate-row+.rate-row{border-top:.5px solid var(--sep)}.rate-row b{font-size:16px;font-weight:600}.rate-row span{font-size:13px;color:var(--muted);text-align:right}
+.notes-list{margin:0;padding:4px 16px 12px 34px}.notes-list li{font-size:15px;color:var(--secondary);margin:6px 0;line-height:1.5}
+/* CHEAT */
+.cheat-block{margin-bottom:14px}.cheat-block .group{padding:2px 0}.cheat-block h3{font-size:15px}.cheat-inner{padding:14px 16px}.cheat-inner p,.cheat-inner li{font-size:15px;color:var(--secondary);line-height:1.55}.cheat-inner ul{margin:0;padding-left:18px}.cheat-inner li{margin:5px 0}
+.emergency{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.emergency span{background:rgba(255,59,48,.1);color:var(--red);border-radius:999px;padding:6px 10px;font-size:13px;font-weight:600}
+/* SETTINGS */
+.row-btn{width:100%;text-align:left;padding:13px 16px;font-size:17px;color:var(--blue)}
+.row select{margin-left:auto;background:var(--fill);border:0;border-radius:8px;padding:7px 10px;font-size:15px;color:var(--label)}
+.row-sub{padding:0 16px 14px;font-size:13px;color:var(--muted)}
+.row-col{padding:14px 16px}.row-col strong{display:block;font-size:17px}.row-col span{display:block;font-size:14px;color:var(--muted);margin-top:3px;line-height:1.5}
+/* TAB BAR */
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:var(--maxw);z-index:40;display:flex;background:var(--tab);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-top:.5px solid var(--sep);padding:6px 8px calc(8px + env(safe-area-inset-bottom))}
+.tabbar[hidden]{display:none}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0 2px;color:var(--muted);font-size:10px;font-weight:600}
+.tab svg{width:24px;height:24px}
+.tab.active{color:var(--blue)}
+/* SHEETS / MODALS */
+.sheet-wrap{position:fixed;inset:0;z-index:60}.sheet-wrap[hidden]{display:none}
+.sheet-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.sheet{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:var(--maxw);max-height:88dvh;overflow:auto;background:var(--surface);border-radius:16px 16px 0 0;padding:8px 20px calc(20px + env(safe-area-inset-bottom))}
+.grab{width:36px;height:5px;border-radius:999px;background:var(--fill);margin:4px auto 10px}
+.sheet-head{display:flex;align-items:center;justify-content:space-between}.sheet-head h2{font-size:20px;margin:0}.sheet-head button{color:var(--blue);font-size:17px;font-weight:600}
+.help-item{display:flex;gap:12px;padding:12px 0}.help-item+.help-item{border-top:.5px solid var(--sep)}.help-ic{width:36px;height:36px;border-radius:9px;background:var(--fill);display:grid;place-items:center;font-size:17px;flex:0 0 auto}.help-item strong{display:block;font-size:16px}.help-item p{margin:2px 0 0;font-size:14px;color:var(--muted);line-height:1.5}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:70;display:none;place-items:end center;padding:0}
+@media(min-width:640px){.modal{place-items:center;padding:20px}}
+.modal.open{display:grid}
+.modal-box{background:var(--surface);color:var(--label);border-radius:16px 16px 0 0;padding:12px 24px calc(24px + env(safe-area-inset-bottom));width:100%;max-width:560px;text-align:center}
+@media(min-width:640px){.modal-box{border-radius:16px;padding:28px}}
+.modal-box .m-local{font-size:clamp(28px,7vw,42px);font-weight:800;line-height:1.2;word-break:break-word}
+.modal-box .m-en{color:var(--muted);margin-top:8px}
+.modal-box button{margin-top:16px;border-radius:10px;padding:12px 18px;font-weight:600;font-size:16px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom));background:#323232;color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:600;z-index:80;display:none;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center}
+/* ============ RESPONSIVE — same iOS UI, tuned for every screen size ============ */
+html,body{overflow-x:clip}
+img,svg,video{max-width:100%}
+button,input,select{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+.cur-badge,.check,.row .chev{flex:0 0 auto}
+.large-title h1{font-size:clamp(30px,7.4vw,38px)}
+.large-title.compact h1{font-size:clamp(28px,6.6vw,36px)}
+.phrase .local{font-size:clamp(18px,4.6vw,21px);overflow-wrap:anywhere}
+.result-card .big{font-size:clamp(22px,5.6vw,28px)}
+.tab{min-height:48px}
+/* Category pills: scroll on phones, wrap (no sideways scroll) when there's room */
+@media(min-width:768px){.chips{flex-wrap:wrap;overflow-x:visible}}
+/* --- Small phones (≤420px) and extra-narrow / foldables (≤360px) --- */
+@media(max-width:420px){
+ :root{--pad:12px}
+ .large-title{padding:14px 2px 8px}
+ .group-label{margin:18px 8px 6px}
+ .footnote{margin-left:8px;margin-right:8px}
+ .row{padding:11px 12px;gap:10px;min-height:50px}
+ .row .flag{font-size:23px}
+ .row-main strong{font-size:16px}.row-main span{font-size:12px}
+ .phrase{padding:12px}
+ .phrase .en{padding-right:104px}
+ .phrase-actions{top:10px;right:10px;gap:4px}
+ .iconbtn{width:32px;height:32px;font-size:14px}
+ .num-grid{gap:8px}.num-card{padding:12px 8px}
+ .field{padding:11px 12px}.rate-row{padding:11px 12px}
+ .cheat-inner{padding:12px}
+ .sheet{padding-left:16px;padding-right:16px}
+ .modal-box{padding-left:16px;padding-right:16px}
+ .result-card{padding:16px 14px}
+ .quick button{padding:8px 12px;font-size:14px}
+}
+@media(max-width:340px){
+ :root{--pad:10px}
+ .nav-country{font-size:15px;gap:5px}.nav-country .flag{font-size:18px}
+ .icon-circle{width:30px;height:30px}
+ .cat{padding:6px 11px;font-size:13px}
+ .phrase .en{padding-right:96px;font-size:12px}
+ .phrase .local{font-size:17px}
+ .num-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .num-card .n{font-size:19px}.num-card .local{font-size:14px}
+ .tab{font-size:9px}.tab svg{width:22px;height:22px}
+ .emergency span{font-size:12px;padding:5px 8px}
+}
+/* --- Large phones / small tablets (≥600px) --- */
+@media(min-width:600px){
+ :root{--pad:20px}
+ .num-grid{grid-template-columns:repeat(3,1fr)}
+}
+/* --- Tablets (≥768px): roomier padding, denser grids, centred converter --- */
+@media(min-width:768px){
+ :root{--maxw:820px;--pad:24px}
+ .large-title{padding-top:26px}
+ .num-grid{grid-template-columns:repeat(4,1fr);gap:12px}
+ #view-converter>.group,#view-converter>.result-card,#view-converter>.quick,#view-converter>.primary-btn,#view-converter>.status,#view-converter>.group-label{max-width:680px;margin-left:auto;margin-right:auto}
+ #view-converter>.quick{justify-content:center}
+ #view-converter>.group-label{text-align:left}
+ .sheet{border-radius:20px 20px 0 0}
+}
+/* --- Desktop / large tablets (≥1024px): use the width — two-column lists --- */
+@media(min-width:1024px){
+ :root{--maxw:1040px;--pad:32px}
+ .phone{padding-bottom:112px}
+ #pickerList,#settingsCountryList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #pickerList .row,#settingsCountryList .row{border-top:0}
+ #pickerList .row:nth-child(n+3),#settingsCountryList .row:nth-child(n+3){border-top:.5px solid var(--sep)}
+ #pickerList .row:nth-child(even),#settingsCountryList .row:nth-child(even){border-left:.5px solid var(--sep)}
+ .phrase-group{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .phrase-group .phrase{border-top:0}
+ .phrase-group .phrase:nth-child(n+3){border-top:.5px solid var(--sep)}
+ .phrase-group .phrase:nth-child(even){border-left:.5px solid var(--sep)}
+ #cheatContent{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px;align-items:start}
+ #cheatContent .cheat-block{margin-bottom:14px}
+ .num-grid{grid-template-columns:repeat(5,1fr)}
+ .tabbar{padding-left:16px;padding-right:16px}
+ .tab{flex-direction:row;gap:7px;font-size:13px;padding:10px 0}
+ .tab svg{width:22px;height:22px}
+}
+/* --- Very wide screens (≥1500px): cap the line length, keep the app centred --- */
+@media(min-width:1500px){:root{--maxw:1120px}}
+/* --- Short landscape (phones on their side): compact header & titles --- */
+@media(orientation:landscape) and (max-height:500px){
+ .large-title{padding:10px 4px 6px}
+ .large-title h1,.large-title.compact h1{font-size:26px}
+ .large-title p{margin-top:2px}
+ .sheet{max-height:94dvh}
+ .modal{place-items:center;padding:12px}
+ .modal-box{border-radius:16px;padding:20px;max-height:92dvh;overflow:auto}
+ .toast{bottom:calc(72px + env(safe-area-inset-bottom))}
+}
+/* --- Pointer / keyboard niceties (desktop only, no visual change on touch) --- */
+@media(hover:hover){
+ .row:hover,.cat:hover,.quick button:hover,.num-card button:hover{background:var(--fill2)}
+ .cat.active:hover{background:var(--label)}
+ .tab:hover{color:var(--blue)}
+ .iconbtn:hover{filter:brightness(.96)}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+
+<body>
+<div class="phone">
+  <header class="nav">
+    <button class="nav-country" id="navCountryBtn" aria-label="Current country — change in Settings"><span class="flag" id="navFlag">🇹🇭</span><span id="navCountryName">Thailand</span><span class="chev">›</span></button>
+    <div class="nav-actions">
+      <button class="icon-circle" id="helpBtn" aria-label="Help and how to use this app">?</button>
+      <button class="icon-circle" id="gearBtn" aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.64 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.01A1.7 1.7 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09c0 .68.4 1.3 1 1.55.61.26 1.32.1 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.01c.26.6.87 1 1.55 1H21a2 2 0 1 1 0 4h-.09c-.68 0-1.3.4-1.51 1z"/></svg></button>
+    </div>
+  </header>
+
+  <!-- FIRST-RUN PICKER: choose once, then it lives in Settings -->
+  <main id="view-picker" class="view active">
+    <div class="large-title"><h1>Where are<br>you going?</h1><p>Pick a country to start.</p></div>
+    <div class="group" id="pickerList"></div>
+    <p class="footnote">You only pick once — your choice is remembered in this browser. Change it any time in Settings.</p>
+  </main>
+
+  <!-- PHRASES -->
+  <main id="view-phrases" class="view">
+    <div class="large-title compact"><p class="eyebrow" id="phraseEyebrow">THAI · THB</p><h1 id="phraseTitle">Thailand</h1></div>
+    <div class="searchbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="searchInput" placeholder="Search phrases" autocomplete="off"></div>
+    <div id="catPills" class="chips"></div>
+    <div id="phraseContent"></div>
+  </main>
+
+  <!-- CONVERTER -->
+  <main id="view-converter" class="view">
+    <div class="large-title compact"><h1>Converter</h1></div>
+    <div class="group">
+      <div class="field"><label>Amount</label><input type="number" id="amt" value="100" min="0" inputmode="decimal"></div>
+      <div class="field"><label>From</label><select id="fromCur"></select></div>
+      <div class="field"><label>To</label><select id="toCur"></select></div>
+    </div>
+    <button class="primary-btn" id="swapBtn" style="background:var(--surface);color:var(--blue);box-shadow:0 1px 3px rgba(0,0,0,.06)">⇅ &nbsp;Swap currencies</button>
+    <div class="result-card"><div class="big" id="convResult">—</div><p id="convMeta">Fetching live rates…</p><p id="convInverse"></p></div>
+    <div class="quick" id="quickAmts"></div>
+    <button class="primary-btn" id="refreshRates">Refresh live rates</button>
+    <div class="status" id="rateStatus"></div>
+    <p class="group-label">At a glance · <span id="glanceBase">100 USD</span></p>
+    <div class="group" id="rateTable"></div>
+    <p class="group-label">Money notes</p>
+    <div class="group"><ul class="notes-list">
+      <li><b>Japan &amp; Korea:</b> Very cash-friendly. 7-Eleven ATMs in Japan are reliable.</li>
+      <li><b>Vietnam:</b> Lots of zeros — ₫100,000 is a common note. “One hundred” often means 100,000.</li>
+      <li><b>Thailand:</b> Carry small notes for markets &amp; tuk-tuks; PromptPay QR is common.</li>
+      <li><b>Philippines:</b> GCash is king. Keep ₱20 / ₱50 notes and coins for jeepneys.</li>
+      <li><b>Indonesia:</b> GoPay / OVO QRIS works almost everywhere; “seratus ribu” = 100,000.</li>
+    </ul></div>
+  </main>
+
+  <!-- CHEAT -->
+  <main id="view-cheat" class="view">
+    <div class="large-title compact"><h1 id="cheatTitle">Cheat Sheet</h1><p id="cheatSub"></p></div>
+    <div id="cheatContent"></div>
+    <div class="cheat-block"><div class="group"><div class="cheat-inner"><h3 style="margin:0 0 6px">Universal survival kit</h3><ul>
+      <li>Screenshot your hotel address in the local script for drivers.</li>
+      <li>Bargain in markets at ~60–70% with a smile — not in malls or fixed-price shops.</li>
+      <li>Factory ice (tube / cylindrical) is generally made from purified water.</li>
+    </ul></div></div></div>
+  </main>
+
+  <!-- SETTINGS -->
+  <main id="view-settings" class="view">
+    <div class="large-title compact"><h1>Settings</h1></div>
+    <p class="group-label">Country</p>
+    <div class="group" id="settingsCountryList"></div>
+    <p class="group-label">Audio</p>
+    <div class="group">
+      <div class="row"><span style="font-size:17px">Speaking speed</span><select id="speedSel"><option value="0.65">Slow</option><option value="0.9" selected>Normal</option><option value="1.05">Native</option></select></div>
+      <button class="row-btn" id="testVoice">Test voice</button>
+      <div class="row-sub" id="voiceStatus"></div>
+    </div>
+    <p class="group-label">Remembered in this browser</p>
+    <div class="group">
+      <div class="row-col"><strong>Saved on this device</strong><span>Your country, favourites and speaking speed are remembered in this browser, so you do not have to pick again next visit.</span></div>
+      <button class="row-btn" id="resetPrefs" style="color:var(--red)">Forget my country &amp; favourites</button>
+    </div>
+    <p class="group-label">About</p>
+    <div class="group"><div class="row-col"><strong>Asia Phrasebook</strong><span>8 countries · 380+ phrases with audio. Currency rates try open.er-api.com first, with Frankfurter and the fawazahmed0 currency-api as fallbacks; the converter labels which source was used, and a built-in estimate only appears if all three are unreachable.</span></div></div>
+    <p class="footnote" style="text-align:center;margin-top:24px">Made for Triton’s APAC trips.</p>
+  </main>
+
+  <nav class="tabbar" id="tabbar" hidden>
+    <button class="tab active" data-view="phrases"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1.1L3 20l1.1-5.3A8.5 8.5 0 1 1 21 11.5z"/></svg>Phrases</button>
+    <button class="tab" data-view="converter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 10l-3 3 3 3M4 13h13M17 6l3 3-3 3M20 9H7" transform="translate(0,1)"/></svg>Convert</button>
+    <button class="tab" data-view="cheat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>Cheat</button>
+    <button class="tab" data-view="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9L19 19M19 5l-2.1 2.1M7.1 16.9L5 19"/></svg>Settings</button>
+  </nav>
+</div>
+
+<!-- HELP SHEET: all how-to / navigation explanations live here -->
+<div id="helpSheet" class="sheet-wrap" hidden>
+  <div class="sheet-backdrop" id="helpBackdrop"></div>
+  <div class="sheet" role="dialog" aria-label="How to use this app">
+    <div class="grab"></div>
+    <div class="sheet-head"><h2>How to use</h2><button id="helpClose">Done</button></div>
+    <div class="help-item"><div class="help-ic">🌏</div><div><strong>Country</strong><p>You pick your country once. It is remembered in this browser on this device, so you will not be asked again. After that it lives in Settings — tap the country name at the top, the gear, or the Settings tab to change it. Every phrase, number and cheat sheet follows your pick.</p></div></div>
+    <div class="help-item"><div class="help-ic">💬</div><div><strong>Phrases</strong><p>Use the tabs at the bottom: Phrases, Convert, Cheat and Settings. In Phrases, filter with the category pills (Greetings, Essentials, Dining, Transport, Specialized, Numbers) or search in English, local script or romanisation — try “thank you”, “spicy” or “taxi”.</p></div></div>
+    <div class="help-item"><div class="help-ic">🔊</div><div><strong>Listen, Show, Copy, ★</strong><p>Tap the blue play button or Listen to hear a phrase spoken with native pronunciation. If you are offline it falls back to your device voice. ⛶ shows it full-screen — hold it up to a driver or server. Copy puts it on your clipboard. ★ saves a favourite, remembered in this browser. Set speaking speed and test the voice in Settings › Audio.</p></div></div>
+    <div class="help-item"><div class="help-ic">🔢</div><div><strong>Numbers &amp; money</strong><p>The Numbers category covers 1–10 plus the big notes you’ll actually hand over — like ¥10,000, ₫100,000 and ₩50,000.</p></div></div>
+    <div class="help-item"><div class="help-ic">💱</div><div><strong>Converter</strong><p>Rates are fetched live when you open Convert, trying open.er-api.com first, then Frankfurter, then the fawazahmed0 currency-api — the converter shows which source provided your rates. If all three are unreachable (or you’re offline), a labelled built-in fallback estimate is shown instead — tap Refresh live rates to retry, and always check your bank or card rate for the final amount.</p></div></div>
+    <div class="help-item"><div class="help-ic">🧭</div><div><strong>Cheat Sheet</strong><p>Emergency numbers, tipping, etiquette, useful apps and plug type for your country — plus the one local rule that saves embarrassment.</p></div></div>
+  </div>
+</div>
+
+<div id="showModal" class="modal"><div class="modal-box"><div class="grab"></div><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Show this</div><div class="m-local" id="modalLocal"></div><div id="modalRoman" style="font-style:italic;color:var(--muted);margin-top:6px"></div><div class="m-en" id="modalEn"></div><div><button style="background:var(--blue);color:#fff" id="modalSpeak">Play audio</button> <button style="background:var(--fill)" onclick="closeModal()">Close</button></div></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const CATEGORIES=[
+ {id:'all',label:'All phrases',icon:'✦'},
+ {id:'greetings',label:'Greetings',icon:'👋'},
+ {id:'essentials',label:'Essentials',icon:'🧰'},
+ {id:'dining',label:'Dining',icon:'🍜'},
+ {id:'transport',label:'Transport',icon:'🛺'},
+ {id:'specialized',label:'Specialized',icon:'⭐'},
+ {id:'numbers',label:'Numbers & Money',icon:'🔢'},
+];
+
+const COUNTRIES=[
+{
+ id:'th', name:'Thailand', flag:'🇹🇭', language:'Thai', lang:'th-TH', currency:'THB', currencyName:'Thai Baht ฿', capital:'Bangkok',
+ tagline:'Land of Smiles — wai, spice, tuk-tuks & Muay Thai.',
+ emergency:{Police:'191',Ambulance:'1669','Tourist Police':'1155'},
+ phrases:{
+  greetings:[
+   {en:'Hello',local:'สวัสดี',roman:'sà-wàt-dii',note:'Add khráp (male speaker) / khâ (female) at the end to be polite: Sawatdii khráp / khâ.'},
+   {en:'Good morning',local:'สวัสดีตอนเช้า',roman:'sà-wàt-dii ton-cháo'},
+   {en:'Thank you',local:'ขอบคุณ',roman:'khòp khun'},
+   {en:'Thank you very much',local:'ขอบคุณมาก',roman:'khòp khun mâak'},
+   {en:'You’re welcome',local:'ยินดี',roman:'yin-dii'},
+   {en:'How are you?',local:'สบายดีไหม',roman:'sà-baai dii mái'},
+   {en:'I’m fine, thanks',local:'สบายดี ขอบคุณ',roman:'sà-baai dii, khòp khun'},
+   {en:'Goodbye',local:'ลาก่อน',roman:'laa kòn'},
+   {en:'See you later',local:'แล้วเจอกัน',roman:'léeo jəə gan'},
+   {en:'Excuse me / Sorry',local:'ขอโทษ',roman:'khǒo thôot'},
+  ],
+  essentials:[
+   {en:'Yes',local:'ใช่',roman:'châi'},
+   {en:'No',local:'ไม่ใช่ / ไม่',roman:'mâi châi / mâi'},
+   {en:'Please',local:'กรุณา',roman:'gà-rú-naa'},
+   {en:'Help!',local:'ช่วยด้วย!',roman:'chûai dûai!'},
+   {en:'I don’t understand',local:'ไม่เข้าใจ',roman:'mâi khâo jai'},
+   {en:'Do you speak English?',local:'พูดภาษาอังกฤษได้ไหม',roman:'phûut phaa-sǎa ang-grìt dâi mái'},
+   {en:'Where is…?',local:'…อยู่ที่ไหน',roman:'…yùu thîi nǎi'},
+   {en:'Where is the bathroom?',local:'ห้องน้ำอยู่ที่ไหน',roman:'hông náam yùu thîi nǎi'},
+   {en:'How much is this?',local:'อันนี้เท่าไหร่',roman:'an-níi thâo-rài'},
+   {en:'Too expensive',local:'แพงไป',roman:'phaaeng pai'},
+   {en:'Can you lower the price?',local:'ลดหน่อยได้ไหม',roman:'lót nòi dâi mái'},
+   {en:'Call the police / ambulance',local:'เรียกตำรวจ / เรียกรถพยาบาล',roman:'rîak dtam-rùat / rîak rót phá-yaa-baan'},
+  ],
+  dining:[
+   {en:'I’d like this, please',local:'เอาอันนี้ครับ/ค่ะ',roman:'ao an-níi khráp/khâ'},
+   {en:'Not spicy',local:'ไม่เผ็ด',roman:'mâi phèt'},
+   {en:'A little spicy',local:'เผ็ดนิดหน่อย',roman:'phèt nít-nòi'},
+   {en:'Very spicy — I love it',local:'เผ็ดมาก ชอบครับ/ค่ะ',roman:'phèt mâak, chôp khráp/khâ'},
+   {en:'No peanuts — I’m allergic',local:'ไม่ใส่ถั่ว แพ้ถั่ว',roman:'mâi sài thùa, pháe thùa'},
+   {en:'Vegetarian',local:'มังสวิรัติ / เจ',roman:'mang-sà-wí-rát / jee'},
+   {en:'Water, please',local:'ขอน้ำหน่อย',roman:'khǒo náam nòi'},
+   {en:'Delicious!',local:'อร่อยมาก!',roman:'à-ròi mâak!'},
+   {en:'The bill, please',local:'เก็บเงินด้วย / เช็คบิล',roman:'gèp ngən dûai / chék bin'},
+   {en:'One beer, please',local:'ขอเบียร์หนึ่งขวด',roman:'khǒo biia nùeng khùat'},
+  ],
+  transport:[
+   {en:'Take me to… please',local:'ไป…หน่อย',roman:'pai … nòi'},
+   {en:'Stop here, please',local:'จอดตรงนี้',roman:'jòot trong-níi'},
+   {en:'Turn left / right',local:'เลี้ยวซ้าย / เลี้ยวขวา',roman:'líao sáai / líao khwǎa'},
+   {en:'Go straight',local:'ตรงไป',roman:'trong pai'},
+   {en:'How much to the airport?',local:'ไปสนามบินเท่าไหร่',roman:'pai sà-nǎam-bin thâo-rài'},
+   {en:'Please use the meter',local:'เปิดมิเตอร์หน่อย',roman:'pòet mii-təə nòi',note:'Essential in Bangkok taxis — insist politely before you ride.'},
+   {en:'Where is the BTS / MRT station?',local:'สถานี BTS / MRT อยู่ที่ไหน',roman:'sà-thǎa-nii BTS / MRT yùu thîi nǎi'},
+   {en:'Slow down, please',local:'ขับช้าๆ หน่อย',roman:'khàp cháa-cháa nòi'},
+  ],
+  specialized:[
+   {en:'[Muay Thai] I want to train Muay Thai',local:'ผม/ดิฉันอยากฝึกมวยไทย',roman:'phǒm/dì-chǎn yàak fùek muai thai'},
+   {en:'[Muay Thai] How many rounds?',local:'กี่ยก',roman:'gìi yók'},
+   {en:'[Muay Thai] One round — beginner',local:'หนึ่งยก มือใหม่',roman:'nùeng yók, muue-mài'},
+   {en:'[Muay Thai] Can I watch training?',local:'ดูซ้อมได้ไหม',roman:'duu sôm dâi mái'},
+   {en:'[Muay Thai] That was a great fight!',local:'ชกดีมาก!',roman:'chók dii mâak!'},
+   {en:'[Market] I’m just looking',local:'ดูเฉยๆ',roman:'duu chəəi-chəəi'},
+   {en:'[Street food] No coriander, please',local:'ไม่ใส่ผักชี',roman:'mâi sài phàk-chii'},
+   {en:'[Massage] Softer / stronger, please',local:'เบาหน่อย / แรงหน่อย',roman:'bao nòi / raaeng nòi'},
+  ]
+ },
+ numbers:[
+  {en:'1',local:'หนึ่ง',roman:'nùeng'},{en:'2',local:'สอง',roman:'sǒong'},{en:'3',local:'สาม',roman:'sǎam'},{en:'4',local:'สี่',roman:'sìi'},{en:'5',local:'ห้า',roman:'hâa'},{en:'6',local:'หก',roman:'hòk'},{en:'7',local:'เจ็ด',roman:'jèt'},{en:'8',local:'แปด',roman:'pàaet'},{en:'9',local:'เก้า',roman:'gâo'},{en:'10',local:'สิบ',roman:'sìp'},
+  {en:'100 Baht',local:'หนึ่งร้อยบาท',roman:'nùeng rói bàat',money:true},{en:'1,000 Baht',local:'หนึ่งพันบาท',roman:'nùeng phan bàat',money:true},{en:'10,000 Baht',local:'หนึ่งหมื่นบาท',roman:'nùeng mùuen bàat',money:true},
+ ],
+ specializedTitle:'Specialized: Muay Thai, Markets & Massage',
+ cheat:{tipping:'Not expected, but rounding up or leaving 20–50฿ is appreciated. 10% in nicer restaurants if service charge isn’t included.', etiquette:['Do the wai — palms together, slight bow — when greeting elders / monks.','Never touch someone’s head or point your feet at people / Buddha images.','Dress modestly at temples: cover shoulders and knees.','Stand for the Royal Anthem in cinemas / public places.'], apps:'Grab, Bolt, LINE, Google Maps, Bangkok MRT/BTS via Rabbit card.', plug:'A / B / C • 220V'}
+},
+{
+ id:'jp', name:'Japan', flag:'🇯🇵', language:'Japanese', lang:'ja-JP', currency:'JPY', currencyName:'Japanese Yen ¥', capital:'Tokyo',
+ tagline:'Polite, precise, cash-friendly — trains on time, vending machines everywhere.',
+ emergency:{Police:'110',Ambulance:'119','Tourist Hotline':'050-3816-2787'},
+ phrases:{
+  greetings:[
+   {en:'Hello',local:'こんにちは',roman:'konnichiwa'},
+   {en:'Good morning',local:'おはようございます',roman:'ohayō gozaimasu'},
+   {en:'Good evening',local:'こんばんは',roman:'konbanwa'},
+   {en:'Thank you',local:'ありがとうございます',roman:'arigatō gozaimasu'},
+   {en:'Thank you (casual)',local:'ありがとう',roman:'arigatō'},
+   {en:'Excuse me / Sorry',local:'すみません',roman:'sumimasen',note:'The Swiss-army word: excuse me, sorry, thanks, waiter!'},
+   {en:'How are you?',local:'お元気ですか',roman:'o-genki desu ka'},
+   {en:'Goodbye',local:'さようなら',roman:'sayōnara'},
+   {en:'You’re welcome',local:'どういたしまして',roman:'dō itashimashite'},
+  ],
+  essentials:[
+   {en:'Yes',local:'はい',roman:'hai'},{en:'No',local:'いいえ',roman:'iie'},
+   {en:'Please (request)',local:'お願いします',roman:'onegaishimasu'},
+   {en:'Help!',local:'助けて!',roman:'tasukete!'},
+   {en:'I don’t understand',local:'わかりません',roman:'wakarimasen'},
+   {en:'Do you speak English?',local:'英語を話せますか',roman:'eigo o hanasemasu ka'},
+   {en:'Where is…?',local:'…はどこですか',roman:'…wa doko desu ka'},
+   {en:'Where is the bathroom?',local:'トイレはどこですか',roman:'toire wa doko desu ka'},
+   {en:'How much is this?',local:'これはいくらですか',roman:'kore wa ikura desu ka'},
+   {en:'Can I pay by card?',local:'カードで払えますか',roman:'kādo de haraemasu ka'},
+  ],
+  dining:[
+   {en:'I’d like this, please',local:'これをください',roman:'kore o kudasai'},
+   {en:'A table for two, please',local:'2名でお願いします',roman:'ni-mei de onegaishimasu'},
+   {en:'Water, please',local:'お水をください',roman:'o-mizu o kudasai'},
+   {en:'No wasabi, please',local:'わさび抜きでお願いします',roman:'wasabi nuki de onegaishimasu'},
+   {en:'I’m vegetarian',local:'ベジタリアンです',roman:'bejitarian desu'},
+   {en:'Delicious!',local:'おいしい!',roman:'oishii!'},
+   {en:'Let’s eat (before meal)',local:'いただきます',roman:'itadakimasu'},
+   {en:'The bill, please',local:'お会計お願いします',roman:'o-kaikei onegaishimasu'},
+  ],
+  transport:[
+   {en:'Where is the station?',local:'駅はどこですか',roman:'eki wa doko desu ka'},
+   {en:'Take me to… please',local:'…までお願いします',roman:'…made onegaishimasu'},
+   {en:'Stop here, please',local:'ここで止めてください',roman:'koko de tomete kudasai'},
+   {en:'Which line to Asakusa?',local:'浅草へはどの線ですか',roman:'Asakusa e wa dono sen desu ka'},
+   {en:'One ticket to Kyoto, please',local:'京都まで1枚お願いします',roman:'Kyōto made ichi-mai onegaishimasu'},
+   {en:'Is this train to…?',local:'この電車は…へ行きますか',roman:'kono densha wa …e ikimasu ka'},
+  ],
+  specialized:[
+   {en:'[Onsen] Can I enter with tattoos?',local:'タトゥーがあっても入れますか',roman:'tatū ga atte mo hairemasu ka'},
+   {en:'[Onsen] Where do I wash first?',local:'先にどこで洗いますか',roman:'saki ni doko de araimasu ka'},
+   {en:'[Karaoke] One hour, please',local:'1時間お願いします',roman:'ichi-jikan onegaishimasu'},
+   {en:'[Shrine] May I take a photo?',local:'写真を撮ってもいいですか',roman:'shashin o totte mo ii desu ka'},
+   {en:'[Shopping] Tax-free, please',local:'免税でお願いします',roman:'menzei de onegaishimasu'},
+   {en:'[Konbini] Please warm this up',local:'温めてください',roman:'atatamete kudasai'},
+   {en:'[Konbini] A bag, please',local:'袋をください',roman:'fukuro o kudasai'},
+  ]
+ },
+ numbers:[{en:'1',local:'一',roman:'ichi'},{en:'2',local:'二',roman:'ni'},{en:'3',local:'三',roman:'san'},{en:'4',local:'四',roman:'yon / shi'},{en:'5',local:'五',roman:'go'},{en:'6',local:'六',roman:'roku'},{en:'7',local:'七',roman:'nana / shichi'},{en:'8',local:'八',roman:'hachi'},{en:'9',local:'九',roman:'kyū'},{en:'10',local:'十',roman:'jū'},{en:'1,000 Yen',local:'千円',roman:'sen-en',money:true},{en:'10,000 Yen',local:'一万円',roman:'ichi-man-en',money:true},{en:'100,000 Yen',local:'十万円',roman:'jū-man-en',money:true}],
+ specializedTitle:'Specialized: Onsen, Konbini, Shrines & Karaoke',
+ cheat:{tipping:'DO NOT TIP. It can cause confusion / offence. Excellent service is standard; a polite thank-you and bow is perfect.', etiquette:['Bow slightly when thanking / greeting.','Quiet on trains — no calls, low voices.','Queue everywhere; stand on the correct escalator side (left in Tokyo, right in Osaka).','Remove shoes where there’s a genkan step or tatami; slippers provided.'], apps:'Suica / Pasmo (Apple Wallet), Google Maps, Tabelog, PayPay, Japan Travel by NAVITIME.', plug:'A • 100V — bring an adapter, sockets are US-style 2-pin.'}
+},
+{
+ id:'vn', name:'Vietnam', flag:'🇻🇳', language:'Vietnamese', lang:'vi-VN', currency:'VND', currencyName:'Vietnamese Dong ₫', capital:'Hanoi',
+ tagline:'Coffee culture, pho at dawn, motorbikes like a river.',
+ emergency:{Police:'113',Ambulance:'115',Fire:'114'},
+ phrases:{
+  greetings:[{en:'Hello',local:'Xin chào',roman:'sin jow'},{en:'Good morning',local:'Chào buổi sáng',roman:'jow boo-ee sahng'},{en:'Thank you',local:'Cảm ơn',roman:'gahm uhn'},{en:'Thank you very much',local:'Cảm ơn rất nhiều',roman:'gahm uhn ruht nyew'},{en:'You’re welcome',local:'Không có gì',roman:'kohng kaw zee'},{en:'How are you?',local:'Bạn có khỏe không?',roman:'bahn kaw khweh kohng'},{en:'Goodbye',local:'Tạm biệt',roman:'tahm bee-et'},{en:'Excuse me / Sorry',local:'Xin lỗi',roman:'sin loy'}],
+  essentials:[{en:'Yes',local:'Vâng / Có',roman:'vung / kaw'},{en:'No',local:'Không',roman:'kohng'},{en:'Please',local:'Làm ơn',roman:'lahm uhn'},{en:'Help!',local:'Cứu tôi!',roman:'goo toy!'},{en:'I don’t understand',local:'Tôi không hiểu',roman:'toy kohng hee-oh'},{en:'Do you speak English?',local:'Bạn có nói tiếng Anh không?',roman:'bahn kaw noy tee-eng ahn kohng'},{en:'Where is…?',local:'…ở đâu?',roman:'…uh dow'},{en:'Where is the bathroom?',local:'Nhà vệ sinh ở đâu?',roman:'nyah veh sin uh dow'},{en:'How much is this?',local:'Cái này bao nhiêu?',roman:'kai nai bow nyew'},{en:'Too expensive',local:'Đắt quá',roman:'daht kwah'},{en:'Cheaper, please?',local:'Rẻ hơn được không?',roman:'reh huhn duoc kohng'}],
+  dining:[{en:'I’d like this, please',local:'Cho tôi cái này',roman:'jaw toy kai nai'},{en:'Water, please',local:'Cho tôi nước',roman:'jaw toy nuoc'},{en:'Not spicy',local:'Không cay',roman:'kohng kai'},{en:'No fish sauce',local:'Không nước mắm',roman:'kohng nuoc mahm'},{en:'Vegetarian',local:'Tôi ăn chay',roman:'toy ahn jai'},{en:'Delicious!',local:'Ngon quá!',roman:'ngon kwah!'},{en:'The bill, please',local:'Tính tiền, làm ơn',roman:'tin tee-en, lahm uhn'},{en:'One pho, please',local:'Cho tôi một phở',roman:'jaw toy moht fuh'}],
+  transport:[{en:'Take me to…',local:'Cho tôi đến…',roman:'jaw toy den…'},{en:'Stop here, please',local:'Dừng ở đây',roman:'zung uh day'},{en:'Turn left / right',local:'Rẽ trái / Rẽ phải',roman:'reh chai / reh fai'},{en:'Go straight',local:'Đi thẳng',roman:'dee tahng'},{en:'How much to the airport?',local:'Đến sân bay bao nhiêu?',roman:'den sun bai bow nyew'},{en:'Slow down, please',local:'Đi chậm lại',roman:'dee chum lai'},{en:'Where is the train station?',local:'Ga tàu ở đâu?',roman:'gah tow uh dow'}],
+  specialized:[
+   {en:'[Coffee] Iced milk coffee, please',local:'Cà phê sữa đá',roman:'kah feh soo-ah dah',note:'The icon: strong robusta, condensed milk, ice. Stir well.'},
+   {en:'[Coffee] Black iced coffee',local:'Cà phê đen đá',roman:'kah feh den dah'},
+   {en:'[Coffee] Egg coffee, please',local:'Cà phê trứng',roman:'kah feh choong',note:'Hanoi speciality — whipped egg yolk, like tiramisu in a cup.'},
+   {en:'[Coffee] Less sweet, please',local:'Ít ngọt thôi',roman:'eet ngawt toy'},
+   {en:'[Coffee] Less ice',local:'Ít đá thôi',roman:'eet dah toy'},
+   {en:'[Motorbike] One helmet, please',local:'Cho tôi một mũ bảo hiểm',roman:'jaw toy moht moo bow hee-em'},
+   {en:'[Market] I’m just looking',local:'Tôi chỉ xem thôi',roman:'toy jee sem toy'},
+  ]
+ },
+ numbers:[{en:'1',local:'Một',roman:'moht'},{en:'2',local:'Hai',roman:'hai'},{en:'3',local:'Ba',roman:'bah'},{en:'4',local:'Bốn',roman:'bohn'},{en:'5',local:'Năm',roman:'nahm'},{en:'6',local:'Sáu',roman:'sow'},{en:'7',local:'Bảy',roman:'bay'},{en:'8',local:'Tám',roman:'tahm'},{en:'9',local:'Chín',roman:'jin'},{en:'10',local:'Mười',roman:'moo-ee'},{en:'10,000 Dong',local:'Mười nghìn đồng',roman:'moo-ee ngeen dong',money:true},{en:'100,000 Dong',local:'Một trăm nghìn đồng',roman:'moht chahm ngeen dong',money:true},{en:'1,000,000 Dong',local:'Một triệu đồng',roman:'moht chee-oh dong',money:true}],
+ specializedTitle:'Specialized: Coffee Culture & Motorbikes',
+ cheat:{tipping:'Not traditional, but rounding up / 10% in nice restaurants and small tips for guides/drivers are appreciated.', etiquette:['Crossing the road: walk slowly and steadily — bikes flow around you. Don’t stop suddenly.','Use both hands / support your elbow when giving something to elders.','Don’t stick chopsticks upright in rice (funeral symbolism).','Haggle with a smile in markets.'], apps:'Grab (rides + food), Google Translate camera for menus, Zalo for local contacts.', plug:'A / C • 220V'}
+},
+{
+ id:'ph', name:'Philippines', flag:'🇵🇭', language:'Tagalog / Filipino', lang:'fil-PH', currency:'PHP', currencyName:'Philippine Peso ₱', capital:'Manila',
+ tagline:'English everywhere, Tagalog wins smiles — jeepneys, tricycles, “po” for respect.',
+ emergency:{Police:'911',Ambulance:'911','Tourist Hotline':'15164'},
+ phrases:{
+  greetings:[{en:'Hello',local:'Kumusta',roman:'koo-moos-tah'},{en:'Good morning',local:'Magandang umaga po',roman:'ma-gan-dang oo-mah-ga po'},{en:'Good afternoon',local:'Magandang hapon po',roman:'ma-gan-dang hah-pon po'},{en:'Thank you',local:'Salamat po',roman:'sa-lah-mat po',note:'Add “po” to almost anything to make it polite / respectful.'},{en:'Thank you very much',local:'Maraming salamat po',roman:'ma-rah-ming sa-lah-mat po'},{en:'You’re welcome',local:'Walang anuman po',roman:'wa-lang a-noo-man po'},{en:'How are you?',local:'Kumusta ka po?',roman:'koo-moos-tah ka po'},{en:'Goodbye',local:'Paalam po',roman:'pa-ah-lam po'},{en:'Excuse me',local:'Excuse me po',roman:'ex-kyus mee po'}],
+  essentials:[{en:'Yes (polite)',local:'Opo',roman:'oh-po'},{en:'No (polite)',local:'Hindi po',roman:'hin-dee po'},{en:'Please',local:'Paki- / po',roman:'pah-kee / po'},{en:'Help!',local:'Tulong!',roman:'too-long!'},{en:'I don’t understand',local:'Hindi ko po naiintindihan',roman:'hin-dee ko po na-ee-in-tin-dee-han'},{en:'Do you speak English?',local:'Nagsasalita po ba kayo ng Ingles?',roman:'nag-sa-sa-lee-ta po ba ka-yo ng Ing-gles'},{en:'Where is…?',local:'Saan po ang…?',roman:'sa-ahn po ang'},{en:'Where is the bathroom (CR)?',local:'Saan po ang CR?',roman:'sa-ahn po ang CR',note:'Locals call bathrooms “CR” — Comfort Room.'},{en:'How much is this?',local:'Magkano po ito?',roman:'mag-kah-no po ee-to'},{en:'Too expensive',local:'Mahal po',roman:'ma-hal po'}],
+  dining:[{en:'I’d like this, please',local:'Ito po, paki',roman:'ee-to po, pah-kee'},{en:'Water, please',local:'Tubig po, paki',roman:'too-big po'},{en:'Not spicy',local:'Hindi po maanghang',roman:'hin-dee po ma-ang-hang'},{en:'No peanuts — allergic',local:'Walang mani po, may allergy ako',roman:'wa-lang ma-nee po'},{en:'Delicious!',local:'Masarap po!',roman:'ma-sa-rap po!'},{en:'The bill, please',local:'Bill po, paki',roman:'bill po'},{en:'One rice, please',local:'Isang kanin po',roman:'ee-sang kah-nin po'},{en:'Extra rice, please',local:'Extra rice po',roman:'extra rice po'}],
+  transport:[{en:'Take me to… please',local:'Sa… po, paki',roman:'sa … po'},{en:'Stop here, please — Para po!',local:'Para po!',roman:'pah-ra po!',note:'THE jeepney word. Shout/say “Para po!” when you want to get off.'},{en:'How much to…?',local:'Magkano po papuntang…?',roman:'mag-kah-no po pa-poon-tang'},{en:'Where is the jeepney stop?',local:'Saan po ang sakayan ng jeep?',roman:'sa-ahn po ang sa-kah-yan ng jeep'},{en:'Airport, please',local:'Sa airport po',roman:'sa airport po'},{en:'Turn left / right',local:'Kaliwa / Kanan po',roman:'ka-lee-wah / kah-nan po'}],
+  specialized:[
+   {en:'[Jeepney] Payment, please — Bayad po!',local:'Bayad po!',roman:'bah-yad po!',note:'Pass your fare forward hand-to-hand and say “Bayad po!” + your destination.'},
+   {en:'[Jeepney] Please pass my payment',local:'Makikisuyo po ng bayad',roman:'ma-kee-kee-soo-yo po ng bah-yad'},
+   {en:'[Jeepney] Just here — Dito lang po',local:'Dito lang po',roman:'dee-to lang po'},
+   {en:'[Tricycle] How much for a special trip?',local:'Magkano po special trip?',roman:'mag-kah-no po special trip',note:'“Special” = you hire the whole tricycle, not shared.'},
+   {en:'[Tricycle] To the market, please',local:'Sa palengke po',roman:'sa pa-leng-keh po'},
+   {en:'[Everyday] Let’s eat!',local:'Kain na po tayo!',roman:'kah-in na po tah-yo'},
+   {en:'[Everyday] Take care!',local:'Ingat po!',roman:'ee-ngat po'},
+  ]
+ },
+ numbers:[{en:'1',local:'Isa',roman:'ee-sa'},{en:'2',local:'Dalawa',roman:'da-la-wah'},{en:'3',local:'Tatlo',roman:'tat-lo'},{en:'4',local:'Apat',roman:'ah-pat'},{en:'5',local:'Lima',roman:'lee-ma'},{en:'6',local:'Anim',roman:'ah-nim'},{en:'7',local:'Pito',roman:'pee-to'},{en:'8',local:'Walo',roman:'wah-lo'},{en:'9',local:'Siyam',roman:'see-yam'},{en:'10',local:'Sampu',roman:'sam-poo'},{en:'100 Pesos',local:'Isang daang piso',roman:'ee-sang da-ang pee-so',money:true},{en:'500 Pesos',local:'Limang daang piso',roman:'lee-mang da-ang pee-so',money:true},{en:'1,000 Pesos',local:'Isang libong piso',roman:'ee-sang lee-bong pee-so',money:true}],
+ specializedTitle:'Specialized: Jeepney & Tricycle Survival',
+ cheat:{tipping:'10% in restaurants if no service charge; round up for taxis / Grab; small bills for drivers & guides are kind.', etiquette:['Use “po” and “opo” — instant respect, especially with elders.','“Mano po” (elder’s hand to forehead) is a traditional respectful greeting.','Point with lips / whole hand, not one finger, if you can.','Traffic in Manila is legendary — leave very early for flights.'], apps:'Grab, GCash, Angkas / JoyRide (motorbike taxis), Google Maps + Waze.', plug:'A / B • 220V'}
+},
+{
+ id:'kr', name:'South Korea', flag:'🇰🇷', language:'Korean', lang:'ko-KR', currency:'KRW', currencyName:'South Korean Won ₩', capital:'Seoul',
+ tagline:'BBQ, soju, subway perfection — polite forms matter.',
+ emergency:{Police:'112',Ambulance:'119','Tourist Police':'1330'},
+ phrases:{
+  greetings:[{en:'Hello',local:'안녕하세요',roman:'annyeonghaseyo'},{en:'Good morning',local:'좋은 아침이에요',roman:'joeun achim-ieyo'},{en:'Thank you',local:'감사합니다',roman:'gamsahamnida'},{en:'Thank you (polite casual)',local:'고마워요',roman:'gomawoyo'},{en:'Excuse me / Sorry',local:'죄송합니다 / 저기요',roman:'joesonghamnida / jeogiyo',note:'Jeogiyo = “excuse me” to get attention, e.g. in a restaurant.'},{en:'How are you?',local:'잘 지내요?',roman:'jal jinaeyo?'},{en:'Goodbye (you’re leaving)',local:'안녕히 계세요',roman:'annyeonghi gyeseyo'},{en:'You’re welcome',local:'천만에요',roman:'cheonmaneyo'}],
+  essentials:[{en:'Yes',local:'네',roman:'ne'},{en:'No',local:'아니요',roman:'aniyo'},{en:'Please',local:'주세요',roman:'juseyo',note:'Add after a noun: “Mul juseyo” = water, please.'},{en:'Help!',local:'도와주세요!',roman:'dowajuseyo!'},{en:'I don’t understand',local:'이해가 안 돼요',roman:'ihaega an dwaeyo'},{en:'Do you speak English?',local:'영어 할 수 있어요?',roman:'yeongeo hal su isseoyo?'},{en:'Where is…?',local:'…어디예요?',roman:'…eodiyeyo?'},{en:'Where is the bathroom?',local:'화장실 어디예요?',roman:'hwajangsil eodiyeyo?'},{en:'How much is this?',local:'이거 얼마예요?',roman:'igeo eolmayeyo?'},{en:'Too expensive',local:'너무 비싸요',roman:'neomu bissayo'}],
+  dining:[{en:'I’d like this, please',local:'이거 주세요',roman:'igeo juseyo'},{en:'Water, please',local:'물 주세요',roman:'mul juseyo'},{en:'Not spicy',local:'안 맵게 해주세요',roman:'an maepge haejuseyo'},{en:'Less spicy',local:'덜 맵게 해주세요',roman:'deol maepge haejuseyo'},{en:'Vegetarian',local:'채식주의자예요',roman:'chaesik-juuija-yeyo'},{en:'Delicious!',local:'맛있어요!',roman:'masisseoyo!'},{en:'The bill, please',local:'계산서 주세요',roman:'gyesanseo juseyo'},{en:'One beer, please',local:'맥주 한 병 주세요',roman:'maekju han byeong juseyo'}],
+  transport:[{en:'Where is the subway station?',local:'지하철역 어디예요?',roman:'jihacheol-yeok eodiyeyo?'},{en:'Take me to… please',local:'…로 가주세요',roman:'…ro gajuseyo'},{en:'Stop here, please',local:'여기서 세워주세요',roman:'yeogiseo sewojuseyo'},{en:'How much to the airport?',local:'공항까지 얼마예요?',roman:'gonghang-kkaji eolmayeyo?'},{en:'Turn left / right',local:'좌회전 / 우회전',roman:'jwahoejeon / uhoejeon'},{en:'Please charge my T-money card',local:'티머니 충전해주세요',roman:'timeoni chungjeon-haejuseyo'}],
+  specialized:[
+   {en:'[BBQ] Two servings of pork belly, please',local:'삼겹살 2인분 주세요',roman:'samgyeopsal i-inbun juseyo'},
+   {en:'[BBQ] More lettuce / kimchi, please',local:'상추 / 김치 더 주세요',roman:'sangchu / gimchi deo juseyo'},
+   {en:'[Drinks] One bottle of soju, please',local:'소주 한 병 주세요',roman:'soju han byeong juseyo'},
+   {en:'[Drinks] Cheers!',local:'건배!',roman:'geonbae!'},
+   {en:'[Cafe] Iced Americano, please',local:'아이스 아메리카노 주세요',roman:'aiseu amerikano juseyo',note:'“Ah-ah” (아아) is slang for iced Americano — order like a local.'},
+   {en:'[Shopping] Do you have a smaller size?',local:'작은 사이즈 있어요?',roman:'jageun saijeu isseoyo?'},
+   {en:'[K-pop / Photo] May I take a photo?',local:'사진 찍어도 돼요?',roman:'sajin jjigeodo dwaeyo?'},
+  ]
+ },
+ numbers:[{en:'1',local:'하나',roman:'hana (native) / 일 il'},{en:'2',local:'둘',roman:'dul / 이 i'},{en:'3',local:'셋',roman:'set / 삼 sam'},{en:'4',local:'넷',roman:'net / 사 sa'},{en:'5',local:'다섯',roman:'daseot / 오 o'},{en:'6',local:'여섯',roman:'yeoseot / 육 yuk'},{en:'7',local:'일곱',roman:'ilgop / 칠 chil'},{en:'8',local:'여덟',roman:'yeodeol / 팔 pal'},{en:'9',local:'아홉',roman:'ahop / 구 gu'},{en:'10',local:'열',roman:'yeol / 십 sip'},{en:'10,000 Won',local:'만 원',roman:'man won',money:true},{en:'50,000 Won',local:'오만 원',roman:'o-man won',money:true},{en:'100,000 Won',local:'십만 원',roman:'sip-man won',money:true}],
+ specializedTitle:'Specialized: BBQ, Soju & Cafés',
+ cheat:{tipping:'No tipping culture — don’t leave tips in taxis/restaurants (may be returned). Service is included.', etiquette:['Use two hands (or support one arm) when giving/receiving — money, cards, drinks.','Pour drinks for elders first; turn away slightly when drinking with elders.','Don’t start eating before the eldest at the table.','Shoes off indoors / in traditional restaurants.'], apps:'KakaoMap / Naver Map (Google Maps walking is limited), Kakao T taxi, Papago translator — best for Korean.', plug:'C / F • 220V (European-style round pins)'}
+},
+{
+ id:'id', name:'Indonesia', flag:'🇮🇩', language:'Bahasa Indonesia', lang:'id-ID', currency:'IDR', currencyName:'Indonesian Rupiah Rp', capital:'Jakarta / Bali for most trips',
+ tagline:'Friendly & forgiving language — warungs, ojol bikes, “makasih!” everywhere.',
+ emergency:{Police:'110',Ambulance:'118 / 119','Tourist (Bali)':'+62 361 224111'},
+ phrases:{
+  greetings:[{en:'Hello',local:'Halo',roman:'hah-lo'},{en:'Good morning',local:'Selamat pagi',roman:'se-lah-mat pah-gee'},{en:'Good afternoon',local:'Selamat siang',roman:'se-lah-mat see-ang'},{en:'Good evening',local:'Selamat malam',roman:'se-lah-mat mah-lam'},{en:'Thank you',local:'Terima kasih',roman:'te-ree-ma kah-see'},{en:'Thanks a lot (casual)',local:'Makasih banyak!',roman:'ma-kah-see bah-nyak'},{en:'You’re welcome',local:'Sama-sama',roman:'sah-ma sah-ma'},{en:'How are you?',local:'Apa kabar?',roman:'ah-pa kah-bar'},{en:'Goodbye',local:'Sampai jumpa / Dadah',roman:'sam-pai joom-pa / dah-dah'},{en:'Excuse me',local:'Permisi',roman:'per-mee-see'}],
+  essentials:[{en:'Yes',local:'Ya',roman:'yah'},{en:'No / Not',local:'Tidak / Bukan',roman:'tee-dak / boo-kan'},{en:'Please',local:'Tolong / Silakan',roman:'to-long / see-lah-kan'},{en:'Help!',local:'Tolong!',roman:'to-long!'},{en:'I don’t understand',local:'Saya tidak mengerti',roman:'sah-ya tee-dak meng-er-tee'},{en:'Do you speak English?',local:'Bisa bahasa Inggris?',roman:'bee-sa ba-hah-sa Ing-gris'},{en:'Where is…?',local:'Di mana…?',roman:'dee mah-na'},{en:'Where is the bathroom?',local:'Di mana kamar mandi?',roman:'dee mah-na kah-mar man-dee'},{en:'How much is this?',local:'Berapa harganya?',roman:'be-rah-pa har-gah-nya'},{en:'Too expensive — cheaper?',local:'Terlalu mahal, bisa kurang?',roman:'ter-lah-loo ma-hal, bee-sa koo-rang'}],
+  dining:[{en:'I’d like this, please',local:'Saya mau ini, tolong',roman:'sah-ya mau ee-nee'},{en:'Water, please',local:'Air putih, tolong',roman:'a-eer poo-tee'},{en:'Not spicy',local:'Tidak pedas',roman:'tee-dak pe-das'},{en:'A little spicy',local:'Sedikit pedas',roman:'se-dee-kit pe-das'},{en:'No pork',local:'Tanpa babi',roman:'tan-pa bah-bee'},{en:'Vegetarian',local:'Saya vegetarian',roman:'sah-ya ve-ge-ta-ree-an'},{en:'Delicious!',local:'Enak sekali!',roman:'e-nak se-kah-lee!'},{en:'The bill, please',local:'Minta bon / bill, tolong',roman:'min-ta bon'}],
+  transport:[{en:'Take me to…',local:'Antar saya ke…',roman:'an-tar sah-ya ke'},{en:'Stop here, please',local:'Berhenti di sini',roman:'ber-hen-tee dee see-nee'},{en:'Turn left / right',local:'Belok kiri / kanan',roman:'beh-lok kee-ree / kah-nan'},{en:'Go straight',local:'Lurus saja',roman:'loo-roos sah-ja'},{en:'How much to the airport?',local:'Ke bandara berapa?',roman:'ke ban-dah-ra be-rah-pa'},{en:'Slow down, please',local:'Pelan-pelan, tolong',roman:'pe-lan pe-lan'}],
+  specialized:[
+   {en:'[Ojol / Gojek] I’m here — I’m wearing…',local:'Saya di sini, saya pakai…',roman:'sah-ya dee see-nee, sah-ya pah-kai'},
+   {en:'[Warung] Nasi campur, please',local:'Nasi campur, tolong',roman:'nah-see cham-poor',note:'Mixed rice — point at what looks good in the glass cabinet.'},
+   {en:'[Warung] Fried rice, please',local:'Nasi goreng, tolong',roman:'nah-see go-reng'},
+   {en:'[Coffee] Balinese coffee, please',local:'Kopi Bali, tolong',roman:'ko-pee Bah-lee'},
+   {en:'[Bargaining] I’ll take it at this price',local:'Saya ambil dengan harga ini',roman:'sah-ya am-beel deng-an har-ga ee-nee'},
+   {en:'[Surf — Bali] What time is high tide?',local:'Jam berapa air pasang?',roman:'jam be-rah-pa a-eer pah-sang'},
+  ]
+ },
+ numbers:[{en:'1',local:'Satu',roman:'sah-too'},{en:'2',local:'Dua',roman:'doo-ah'},{en:'3',local:'Tiga',roman:'tee-ga'},{en:'4',local:'Empat',roman:'em-pat'},{en:'5',local:'Lima',roman:'lee-ma'},{en:'6',local:'Enam',roman:'e-nam'},{en:'7',local:'Tujuh',roman:'too-joo'},{en:'8',local:'Delapan',roman:'de-lah-pan'},{en:'9',local:'Sembilan',roman:'sem-bee-lan'},{en:'10',local:'Sepuluh',roman:'se-poo-loo'},{en:'50,000 Rupiah',local:'Lima puluh ribu rupiah',roman:'lee-ma poo-loo ree-boo',money:true},{en:'100,000 Rupiah',local:'Seratus ribu rupiah',roman:'se-rah-toos ree-boo',money:true},{en:'500,000 Rupiah',local:'Lima ratus ribu rupiah',roman:'lee-ma rah-toos ree-boo',money:true}],
+ specializedTitle:'Specialized: Warung, Ojol & Bali Life',
+ cheat:{tipping:'Round up / 5–10% appreciated in restaurants & for drivers; 10–20k Rp for porters/guides is kind, not mandatory.', etiquette:['Use your RIGHT hand to give/receive/eat — left is considered unclean.','Point with your thumb, not index finger, if you can.','Dress modestly at temples; sarong + sash often required (rentable at entrance).','Remove shoes entering homes / some shops.'], apps:'Gojek & Grab (transport + food + payments), QRIS for payments, Traveloka.', plug:'C / F • 230V'}
+},
+{
+ id:'my', name:'Malaysia', flag:'🇲🇾', language:'Malay (Bahasa Melayu)', lang:'ms-MY', currency:'MYR', currencyName:'Malaysian Ringgit RM', capital:'Kuala Lumpur',
+ tagline:'Mamak stalls at midnight, kopitiams, “lah” at the end of everything.',
+ emergency:{Police:'999',Ambulance:'999','Tourist Police':'+60 3-2149 6590'},
+ phrases:{
+  greetings:[{en:'Hello',local:'Helo / Selamat sejahtera',roman:'he-lo / se-lah-mat se-jah-te-ra'},{en:'Good morning',local:'Selamat pagi',roman:'se-lah-mat pah-gee'},{en:'Thank you',local:'Terima kasih',roman:'te-ree-ma kah-see'},{en:'You’re welcome',local:'Sama-sama',roman:'sah-ma sah-ma'},{en:'How are you?',local:'Apa khabar?',roman:'ah-pa kha-bar'},{en:'Goodbye',local:'Selamat tinggal / Bye',roman:'se-lah-mat ting-gal'},{en:'Excuse me',local:'Maaf / Tumpang tanya',roman:'ma-af / toom-pang tah-nya'}],
+  essentials:[{en:'Yes',local:'Ya',roman:'yah'},{en:'No',local:'Tidak',roman:'tee-dak'},{en:'Please',local:'Tolong / Sila',roman:'to-long / see-la'},{en:'Help!',local:'Tolong!',roman:'to-long!'},{en:'I don’t understand',local:'Saya tidak faham',roman:'sah-ya tee-dak fa-ham'},{en:'Do you speak English?',local:'Boleh cakap Inggeris?',roman:'bo-leh cha-kap Ing-gris',note:'Almost everyone in KL/Penang does — Malay wins warmth.'},{en:'Where is…?',local:'Di mana…?',roman:'dee mah-na'},{en:'Where is the bathroom?',local:'Di mana tandas?',roman:'dee mah-na tan-das'},{en:'How much is this?',local:'Berapa harga ini?',roman:'be-rah-pa har-ga ee-nee'}],
+  dining:[{en:'I’d like this, please',local:'Saya nak ini',roman:'sah-ya nak ee-nee'},{en:'Water, please',local:'Air kosong, tolong',roman:'a-eer ko-song'},{en:'Not spicy',local:'Tidak pedas',roman:'tee-dak pe-das'},{en:'Less sweet',local:'Kurang manis',roman:'koo-rang ma-nis'},{en:'No pork / Halal?',local:'Tiada babi / Halal ke?',roman:'tee-ah-da bah-bee / ha-lal ke'},{en:'Delicious!',local:'Sedap sangat!',roman:'se-dap sah-ngat!'},{en:'The bill, please',local:'Bill, tolong / Kira, tolong',roman:'bill / kee-ra to-long'}],
+  transport:[{en:'Where is the LRT / MRT station?',local:'Di mana stesen LRT / MRT?',roman:'dee mah-na steh-sen'},{en:'Take me to…',local:'Hantar saya ke…',roman:'han-tar sah-ya ke'},{en:'Stop here, please',local:'Berhenti di sini',roman:'ber-hen-tee dee see-nee'},{en:'How much to the airport?',local:'Ke lapangan terbang berapa?',roman:'ke la-pang-an ter-bang be-rah-pa'},{en:'Turn left / right',local:'Belok kiri / kanan',roman:'beh-lok kee-ree / kah-nan'}],
+  specialized:[
+   {en:'[Mamak] Roti canai, please',local:'Roti canai satu',roman:'ro-tee cha-nai sah-too'},
+   {en:'[Mamak] Teh tarik, please',local:'Teh tarik satu',roman:'teh tah-rik sah-too',note:'Pulled milk tea — frothy, sweet, iconic.'},
+   {en:'[Kopitiam] Kopi-O (black coffee with sugar)',local:'Kopi-O satu',roman:'ko-pee oh sah-too'},
+   {en:'[Kopitiam] Half-boiled eggs & kaya toast',local:'Telur separuh masak dan roti kaya',roman:'te-lor se-pah-roo ma-sak dan ro-tee kah-ya'},
+   {en:'[Everyday] Can / No problem — Boleh lah!',local:'Boleh lah!',roman:'bo-leh lah'},
+   {en:'[Everyday] Let’s go eat — Jom makan!',local:'Jom makan!',roman:'jom ma-kan'},
+  ]
+ },
+ numbers:[{en:'1',local:'Satu',roman:'sah-too'},{en:'2',local:'Dua',roman:'doo-ah'},{en:'3',local:'Tiga',roman:'tee-ga'},{en:'4',local:'Empat',roman:'em-pat'},{en:'5',local:'Lima',roman:'lee-ma'},{en:'6',local:'Enam',roman:'e-nam'},{en:'7',local:'Tujuh',roman:'too-joo'},{en:'8',local:'Lapan',roman:'lah-pan'},{en:'9',local:'Sembilan',roman:'sem-bee-lan'},{en:'10',local:'Sepuluh',roman:'se-poo-loo'},{en:'50 Ringgit',local:'Lima puluh ringgit',roman:'lee-ma poo-loo ring-git',money:true},{en:'100 Ringgit',local:'Seratus ringgit',roman:'se-rah-toos ring-git',money:true}],
+ specializedTitle:'Specialized: Mamak & Kopitiam Code',
+ cheat:{tipping:'Not customary; rounding up / leaving small change is appreciated. Upscale places may add service charge.', etiquette:['Right hand for giving/receiving; modest dress at mosques (robes often provided).','During Ramadan, be discreet eating in public in conservative areas.','Remove shoes entering homes/mosques.','English is widely spoken — Malay + a smile is a bonus.'], apps:'Grab, Touch ’n Go eWallet, AirAsia MOVE, KTMB for trains.', plug:'G • 240V (UK 3-pin — same as Singapore)'}
+},
+{
+ id:'sg', name:'Singapore', flag:'🇸🇬', language:'English + Singlish / Malay / Mandarin', lang:'en-SG', currency:'SGD', currencyName:'Singapore Dollar S$', capital:'Singapore',
+ tagline:'Hawker centres, kopi code, super-efficient MRT — English works, Singlish delights.',
+ emergency:{Police:'999',Ambulance:'995',Fire:'995'},
+ phrases:{
+  greetings:[{en:'Hello',local:'Hello',roman:'he-lo'},{en:'Good morning',local:'Good morning',roman:'—'},{en:'Thank you',local:'Thank you / Terima kasih / Xièxiè',roman:'te-ree-ma kah-see / shieh-shieh'},{en:'Excuse me',local:'Excuse me',roman:'—'},{en:'How are you? (Singlish)',local:'How are you, lah? Eat already or not?',roman:'eat or-ready or not',note:'“Eat already?” is a loving greeting — food is care.'},{en:'Goodbye',local:'Bye bye / See you',roman:'—'}],
+  essentials:[{en:'Yes — Can',local:'Can',roman:'can',note:'Singlish “can” = yes / sure / it works. “Can can.” = absolutely.'},{en:'No — Cannot',local:'Cannot',roman:'cannot'},{en:'Please',local:'Please, thank you',roman:'—'},{en:'Where is…?',local:'Where is… ah?',roman:'—'},{en:'Where is the bathroom?',local:'Where is the toilet?',roman:'—'},{en:'How much is this?',local:'How much?',roman:'—'},{en:'Too expensive (Singlish)',local:'Wah, so ex, lah!',roman:'wah so ex lah'}],
+  dining:[{en:'Chicken rice, please',local:'Chicken rice, one',roman:'—'},{en:'Less spicy / No chilli',local:'Less spicy, no chilli',roman:'—'},{en:'Takeaway (Singlish)',local:'Tapao / Da bao',roman:'ta-pao / da bao',note:'“Tapao” (Cantonese/Hokkien) = takeaway. Say it at any hawker stall.'},{en:'Eat here',local:'Eat here / Makan sini',roman:'ma-kan see-nee'},{en:'Delicious! (Singlish)',local:'Very shiok!',roman:'shee-ok',note:'Shiok = fantastic / delicious / satisfying. Highest praise.'},{en:'The bill, please',local:'Bill, please',roman:'—'}],
+  transport:[{en:'Where is the MRT station?',local:'Where is the MRT?',roman:'—'},{en:'Take me to… please',local:'Go to…, please',roman:'—'},{en:'Stop here, please',local:'Stop here, please, uncle',roman:'—',note:'Taxi drivers are respectfully “Uncle / Aunty” regardless of age.'},{en:'Airport, please — Changi',local:'Changi Airport, please',roman:'chang-ee'}],
+  specialized:[
+   {en:'[Hawker] Reserve a table — Chope!',local:'Chope!',roman:'chope',note:'Placing a tissue packet on a table = chope = reserved. Respect the tissue!'},
+   {en:'[Kopi] Kopi — coffee with condensed milk',local:'Kopi',roman:'ko-pee'},
+   {en:'[Kopi] Kopi-O — black + sugar',local:'Kopi-O',roman:'ko-pee oh'},
+   {en:'[Kopi] Kopi-C — with evaporated milk',local:'Kopi-C',roman:'ko-pee see'},
+   {en:'[Kopi] Kopi peng — iced coffee',local:'Kopi peng',roman:'ko-pee peng'},
+   {en:'[Kopi] Less sweet — Siu dai',local:'Kopi siu dai',roman:'ko-pee see-oo dai'},
+   {en:'[Kopi] No sugar — Kosong',local:'Kopi-O kosong',roman:'ko-pee oh ko-song'},
+   {en:'[Kopi] Extra strong — Gao',local:'Kopi gao',roman:'ko-pee gow'},
+  ]
+ },
+ numbers:[{en:'1',local:'One / Satu',roman:'sah-too (Malay)'},{en:'2',local:'Two / Dua',roman:'doo-ah'},{en:'3',local:'Three / Tiga',roman:'tee-ga'},{en:'4',local:'Four / Empat',roman:'em-pat'},{en:'5',local:'Five / Lima',roman:'lee-ma'},{en:'6',local:'Six / Enam',roman:'e-nam'},{en:'7',local:'Seven / Tujuh',roman:'too-joo'},{en:'8',local:'Eight / Lapan',roman:'lah-pan'},{en:'9',local:'Nine / Sembilan',roman:'sem-bee-lan'},{en:'10',local:'Ten / Sepuluh',roman:'se-poo-loo'},{en:'50 Dollars',local:'Fifty dollars',roman:'—',money:true},{en:'100 Dollars',local:'One hundred dollars',roman:'—',money:true}],
+ specializedTitle:'Specialized: Hawker & Kopi Code — the real language exam',
+ cheat:{tipping:'Not expected (service charge + GST usually included). Rounding up for taxis is kind but not required.', etiquette:['Respect the chope tissue packet.','Keep left on escalators and walkways unless overtaking — follow the local flow.','No eating/drinking on MRT — fines apply. No durian on MRT/hotels (the smell!).','Queue orderly; Singapore runs on queues and rules — and it works.'], apps:'Grab, Citymapper / MyTransport, EZ-Link / SimplyGo, Chope (restaurants).', plug:'G • 230V (UK 3-pin)'}
+},
+];
+
+const CURRENCIES=[
+ {code:'USD',name:'US Dollar $'},{code:'SGD',name:'Singapore Dollar S$'},{code:'EUR',name:'Euro €'},{code:'GBP',name:'British Pound £'},{code:'AUD',name:'Australian Dollar A$'},
+ {code:'THB',name:'Thai Baht ฿'},{code:'JPY',name:'Japanese Yen ¥'},{code:'VND',name:'Vietnamese Dong ₫'},{code:'PHP',name:'Philippine Peso ₱'},{code:'KRW',name:'Korean Won ₩'},
+ {code:'IDR',name:'Indonesian Rupiah Rp'},{code:'MYR',name:'Malaysian Ringgit RM'},{code:'TWD',name:'Taiwan Dollar NT$'},{code:'CNY',name:'Chinese Yuan ¥'},{code:'HKD',name:'Hong Kong Dollar HK$'},{code:'INR',name:'Indian Rupee ₹'},
+];
+// Fallback approx rates per 1 USD (labelled if used)
+const FALLBACK={USD:1,SGD:1.34,EUR:0.92,GBP:0.79,AUD:1.52,THB:35.5,JPY:152,VND:25400,PHP:58.5,KRW:1365,IDR:15900,MYR:4.68,TWD:31.8,CNY:7.24,HKD:7.81,INR:83.5};
+
+
+let state={country:'th',cat:'all',query:'',favs:new Set(),picked:false};
+const STORE_KEY='asia-phrasebook-prefs-v1';
+let savedSpeed=null;
+(function restorePrefs(){
+  try{
+    const raw=window.localStorage.getItem(STORE_KEY);
+    if(!raw) return;
+    const p=JSON.parse(raw);
+    if(p && COUNTRIES.some(c=>c.id===p.country)){ state.country=p.country; state.picked=!!p.picked; }
+    if(p && Array.isArray(p.favs)) state.favs=new Set(p.favs.filter(x=>typeof x==='string'));
+    if(p && typeof p.cat==='string' && CATEGORIES.some(c=>c.id===p.cat)) state.cat=p.cat;
+    if(p && p.speed) savedSpeed=String(p.speed);
+  }catch(e){}
+})();
+function savePrefs(){ try{ window.localStorage.setItem(STORE_KEY, JSON.stringify({country:state.country,picked:state.picked,favs:Array.from(state.favs),speed:(document.querySelector('#speedSel')||{}).value||savedSpeed||'0.9',cat:state.cat})); }catch(e){} }
+function clearPrefs(){ try{ window.localStorage.removeItem(STORE_KEY); }catch(e){} }
+let rates={...FALLBACK}, ratesLive=false, ratesTime=null, ratesBase='USD', ratesSource=null;
+let modalPhrase=null;
+let currentList=[];
+
+function $(s){return document.querySelector(s)}
+function country(){return COUNTRIES.find(c=>c.id===state.country)}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',1800)}
+
+let ttsAudio=null;
+function ttsLangCode(lang){
+  const l=(lang||country().lang||'en-SG').toLowerCase();
+  if(l.indexOf('fil')===0||l.indexOf('tl')===0) return 'tl';
+  return l.slice(0,2);
+}
+function setVoiceStatus(msg){ const vs=document.querySelector('#voiceStatus'); if(vs) vs.textContent=msg; }
+function stopAudio(){
+  if(ttsAudio){ try{ ttsAudio.pause(); }catch(e){} ttsAudio=null; }
+  if('speechSynthesis' in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+}
+function deviceSpeak(text,lang,rate){
+  if(!('speechSynthesis' in window)){ toast('Audio could not play. Check your connection and try again.'); setVoiceStatus('Audio could not play. Check your connection and try again.'); return; }
+  try{ window.speechSynthesis.resume(); window.speechSynthesis.cancel(); }catch(e){}
+  setTimeout(function(){
+    try{
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang=lang||country().lang; u.rate=rate; u.pitch=1; u.volume=1;
+      let voices=[]; try{ voices=window.speechSynthesis.getVoices()||[]; }catch(e){}
+      const want=u.lang.toLowerCase();
+      const v=voices.find(function(x){return x.lang && x.lang.toLowerCase()===want;})||voices.find(function(x){return x.lang && x.lang.toLowerCase().indexOf(want.slice(0,2))===0;});
+      if(v) u.voice=v;
+      u.onerror=function(ev){ if(ev && ev.error!=='canceled' && ev.error!=='interrupted'){ setVoiceStatus('Device voice could not play this phrase.'); } };
+      window.speechSynthesis.speak(u);
+      setTimeout(function(){ try{ window.speechSynthesis.resume(); }catch(e){} },120);
+      setVoiceStatus(v?('Playing with device voice: '+v.name):('Playing with your device voice for '+country().language+'.'));
+    }catch(e){ toast('Audio could not play. Try again.'); }
+  },90);
+}
+function speak(text,lang){
+  if(!text) return;
+  const fullLang=lang||country().lang;
+  const rate=parseFloat(((document.querySelector('#speedSel')||{}).value)||savedSpeed||0.9)||0.9;
+  const clean=String(text).replace(/\//g,' ').replace(/\s+/g,' ').trim();
+  stopAudio();
+  const tl=ttsLangCode(fullLang);
+  const clip=clean.length>180?clean.slice(0,180):clean;
+  const url='https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl='+encodeURIComponent(tl)+'&q='+encodeURIComponent(clip);
+  let fellBack=false;
+  function fallback(){ if(fellBack) return; fellBack=true; deviceSpeak(clean,fullLang,rate); }
+  try{
+    const audio=new Audio();
+    audio.preload='auto';
+    ttsAudio=audio;
+    audio.src=url;
+    try{ audio.playbackRate=rate; if('preservesPitch' in audio) audio.preservesPitch=true; }catch(e){}
+    audio.onerror=function(){ fallback(); };
+    setVoiceStatus('Playing…');
+    const pr=audio.play();
+    if(pr && typeof pr.catch==='function'){
+      pr.then(function(){ setVoiceStatus('Playing native pronunciation. Tap again to replay.'); }).catch(function(){ fallback(); });
+    }
+  }catch(e){ fallback(); }
+}
+if('speechSynthesis' in window){ try{ window.speechSynthesis.getVoices(); window.speechSynthesis.onvoiceschanged=function(){ try{ window.speechSynthesis.getVoices(); }catch(e){} }; }catch(e){} }
+
+function switchView(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const el=$('#view-'+name); if(el) el.classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.view===name));
+  if(name==='converter' && !ratesLive) fetchRates();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function countryRow(c,selected){
+  return `<button class="row" onclick="selectCountry('${c.id}')"><span class="flag">${c.flag}</span><span class="row-main"><strong>${c.name}</strong><span>${c.language} · ${c.capital}</span></span><span class="cur-badge">${c.currency}</span>${selected?'<span class="check">✓</span>':''}</button>`;
+}
+function renderCountries(){
+  const list=COUNTRIES.map(c=>countryRow(c,c.id===state.country)).join('');
+  $('#pickerList').innerHTML=list;
+  $('#settingsCountryList').innerHTML=list;
+  const c=country();
+  $('#navFlag').textContent=c.flag; $('#navCountryName').textContent=c.name;
+  $('#phraseTitle').textContent=c.name;
+  $('#phraseEyebrow').textContent=(c.language+' · '+c.currency).toUpperCase();
+  renderCheat();
+}
+function selectCountry(id){
+  state.country=id; renderCountries(); renderPhrases();
+  if(!state.picked){ state.picked=true; savePrefs(); $('#tabbar').hidden=false; switchView('phrases'); }
+  else { savePrefs(); toast(country().name+' selected — remembered'); }
+}
+
+function renderCats(){
+  $('#catPills').innerHTML=CATEGORIES.map(cat=>`<button class="cat ${state.cat===cat.id?'active':''}" onclick="selectCat('${cat.id}')">${cat.label}</button>`).join('');
+}
+function selectCat(id){state.cat=id;savePrefs();renderCats();renderPhrases()}
+
+function allPhrasesForCat(catId){
+  const c=country(); if(catId==='numbers') return [];
+  if(catId==='all'){
+    const base=Object.entries(c.phrases).flatMap(([k,arr])=>arr.map(p=>({...p,cat:k})));
+    const nums=(c.numbers||[]).map(n=>({en: n.money? n.en : ('Number '+n.en), local:n.local, roman:n.roman||'', cat:'numbers', note: n.money? 'Large money amount — tap Listen to hear it.' : ''}));
+    return [...base, ...nums];
+  }
+  return (c.phrases[catId]||[]).map(p=>({...p,cat:catId}));
+}
+function matches(p){const q=state.query.trim().toLowerCase();if(!q)return true;return (p.en+' '+p.local+' '+(p.roman||'')).toLowerCase().includes(q)}
+function googleTranslateUrl(q){const query=(q||'').trim();const tl=ttsLangCode(country().lang);return 'https://translate.google.com/?sl=en&tl='+encodeURIComponent(tl)+'&text='+encodeURIComponent(query)+'&op=translate'}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function noResultsHtml(){const q=state.query.trim();const c=country();if(!q)return '<div class="empty">No results found.</div>';const safeQ=escHtml(q);const url=googleTranslateUrl(q);return '<div class="empty"><p>No phrases match &ldquo;'+safeQ+'&rdquo;.</p><p>Translate it into '+escHtml(c.language)+' right away:</p><a class="gt-link" href="'+url+'" target="_blank" rel="noopener">Open &ldquo;'+safeQ+'&rdquo; in Google Translate &rarr;</a><p style="margin-top:12px;font-size:13px">Or try &ldquo;thank&rdquo;, &ldquo;spicy&rdquo; or &ldquo;where&rdquo;.</p></div>'}
+
+function phraseCard(p,idx){
+  const key=country().id+'|'+p.en+'|'+p.local;
+  const fav=state.favs.has(key);
+  return `<article class="phrase">
+    <div class="phrase-actions">
+      <button class="iconbtn fav ${fav?'active':''}" title="Favourite" onclick="toggleFav('${encodeURIComponent(key)}')">★</button>
+      <button class="iconbtn" title="Show big" onclick="openShow(${idx})">⛶</button>
+      <button class="iconbtn primary" title="Listen" onclick="speakPhrase(${idx})">▶</button>
+    </div>
+    <div class="en">${p.en}</div><div class="local">${p.local}</div>${p.roman&&p.roman!=='—'?`<div class="roman">${p.roman}</div>`:''}
+    ${p.note?`<div class="note">${p.note}</div>`:''}
+    <div class="phrase-foot"><button class="textbtn" onclick="speakPhrase(${idx})">Listen</button><button class="textbtn" style="color:var(--muted)" onclick="copyPhrase(${idx})">Copy</button><span class="cat-tag">${p.cat||''}</span></div>
+  </article>`;
+}
+function speakPhrase(idx){const p=currentList[idx];if(p) speak(p.local,country().lang)}
+function copyPhrase(idx){const p=currentList[idx];if(!p)return; const txt=p.local+' ('+p.en+')'; if(navigator.clipboard) navigator.clipboard.writeText(txt).then(()=>toast('Copied: '+p.en)); else toast(p.local)}
+function toggleFav(enc){const k=decodeURIComponent(enc); if(state.favs.has(k)) state.favs.delete(k); else state.favs.add(k); savePrefs(); renderPhrases(); toast(state.favs.has(k)?'Saved to favourites':'Removed from favourites')}
+function openShow(idx){const p=currentList[idx];if(!p)return; modalPhrase=p; $('#modalLocal').textContent=p.local; $('#modalRoman').textContent=p.roman&&p.roman!=='—'?p.roman:''; $('#modalEn').textContent=p.en; $('#showModal').classList.add('open')}
+function closeModal(){$('#showModal').classList.remove('open')}
+
+function renderPhrases(){
+  const c=country(); let html='';
+  if(state.cat==='numbers'){
+    const nums=c.numbers.filter(matches);
+    currentList=nums;
+    html=`<div class="section-mini"><h2>Numbers &amp; money</h2><p>${nums.filter(n=>n.money).map(n=>n.en).join(' · ')}</p></div>`;
+    if(!nums.length) html+=noResultsHtml();
+    else html+=`<div class="num-grid">${nums.map((n,i)=>`<div class="num-card ${n.money?'money-card':''}"><div class="n">${n.en}</div><div class="local">${n.local}</div><div class="roman">${n.roman||''}</div><button class="listen" onclick="speakCurrent(${i})">Listen</button><button onclick="openShow(${i})">Show</button></div>`).join('')}</div>`;
+    $('#phraseContent').innerHTML=html; return;
+  }
+  const list=allPhrasesForCat(state.cat).filter(matches);
+  currentList=list;
+  let title=state.cat==='all'?'All phrases':CATEGORIES.find(x=>x.id===state.cat).label;
+  if(state.cat==='specialized') title=c.specializedTitle;
+  html=`<div class="section-mini"><h2>${title}</h2><p>${list.length} phrase${list.length!==1?'s':''} · ${c.language}</p></div>`;
+  if(state.cat==='specialized') html+=`<div class="callout"><h3>Why this section</h3><p>${c.id==='th'?'Muay Thai gyms welcome drop-ins — these phrases get you from watching to training, plus market & massage essentials.':c.id==='vn'?'Vietnam runs on cà phê. Ordering exactly how you like it — sweetness, ice, egg coffee in Hanoi — is a daily ritual.':c.id==='ph'?'Jeepneys are the cheapest, most Filipino way to move. “Para po!” and “Bayad po!” are all you need to ride with confidence.':c.id==='jp'?'Onsen etiquette, konbini magic and tax-free shopping — the phrases that unlock uniquely Japanese moments.':c.id==='kr'?'BBQ is a team sport, soju has rituals, and “ah-ah” marks you as a café insider.':c.id==='id'?'Warungs and ojol motorbikes are daily life — point, smile, and use these.':c.id==='my'?'Mamak and kopitiam ordering is a language of its own — learn the code once, use it forever.':'Singapore’s kopi code (O, C, peng, siu dai, kosong, gao) works at every kopitiam and hawker drink stall — plus the sacred art of chope.'}</p></div>`;
+  if(!list.length) html+=noResultsHtml();
+  else html+=`<div class="phrase-group">${list.map((p,i)=>phraseCard(p,i)).join('')}</div>`;
+  $('#phraseContent').innerHTML=html;
+}
+function speakCurrent(i){const p=currentList[i]; if(p) speak(p.local,country().lang)}
+
+function renderCheat(){
+  const c=country();
+  $('#cheatTitle').textContent='Cheat Sheet';
+  $('#cheatSub').textContent=c.name+' · '+c.tagline;
+  const block=(t,inner)=>`<div class="cheat-block"><p class="group-label">${t}</p><div class="group"><div class="cheat-inner">${inner}</div></div></div>`;
+  $('#cheatContent').innerHTML=
+   block('Emergency · '+c.name,`<div class="emergency">${Object.entries(c.emergency).map(([k,v])=>`<span>${k}: ${v}</span>`).join('')}</div><p style="margin-top:10px">Save your embassy, hotel and insurer numbers before you land.</p>`)+
+   block('Tipping',`<p style="margin:0">${c.cheat.tipping}</p>`)+
+   block('Etiquette',`<ul>${c.cheat.etiquette.map(e=>`<li>${e}</li>`).join('')}</ul>`)+
+   block('Apps & essentials',`<p style="margin:0"><b>Apps:</b> ${c.cheat.apps}</p><p><b>Plug:</b> ${c.cheat.plug}</p><p style="margin:0"><b>Currency:</b> ${c.currencyName} (${c.currency})</p>`)+
+   block('Big-money phrases',`<ul>${c.numbers.filter(n=>n.money).map(n=>`<li><b>${n.en}:</b> ${n.local} <i>(${n.roman})</i></li>`).join('')}</ul>`)+
+   block(c.specializedTitle,`<ul>${c.phrases.specialized.slice(0,4).map(p=>`<li><b>${p.en.replace(/\[.*?\]\s*/,'')}:</b> ${p.local}</li>`).join('')}</ul>`);
+}
+
+function populateCurrencies(){
+  const opts=CURRENCIES.map(c=>`<option value="${c.code}">${c.code} — ${c.name}</option>`).join('');
+  $('#fromCur').innerHTML=opts; $('#toCur').innerHTML=opts;
+  $('#fromCur').value='USD'; $('#toCur').value='THB';
+  $('#quickAmts').innerHTML=[10,20,50,100,200,500,1000].map(v=>`<button onclick="setAmt(${v})">${v}</button>`).join('');
+}
+function setAmt(v){$('#amt').value=v; convert()}
+function fmt(n,code){ try{return new Intl.NumberFormat('en-US',{style:'currency',currency:code,maximumFractionDigits: code==='JPY'||code==='KRW'||code==='VND'||code==='IDR'?0:2}).format(n)}catch(e){return n.toFixed(2)+' '+code}}
+async function fetchJSON(url,timeoutMs){
+  const ms=timeoutMs||7000;
+  let ctrl=null,timer=null;
+  if('AbortController' in window){ ctrl=new AbortController(); timer=setTimeout(function(){try{ctrl.abort()}catch(e){}},ms); }
+  try{
+    const res=await fetch(url, ctrl?{signal:ctrl.signal}:undefined);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    return await res.json();
+  }finally{ if(timer) clearTimeout(timer); }
+}
+function applyRates(rawMap,source,when){
+  // Normalise any provider's USD-base map onto the built-in table, so a provider
+  // that does not quote every code (Frankfurter has no VND / TWD, for example)
+  // still leaves every currency in the app convertible.
+  const merged={...FALLBACK}; let total=0; const focus=['THB','JPY','VND','PHP','KRW','IDR','MYR','SGD']; let focusHit=0;
+  Object.keys(rawMap||{}).forEach(function(k){
+    const v=Number(rawMap[k]);
+    if(isFinite(v)&&v>0){ const code=k.toUpperCase(); merged[code]=v; total++; if(focus.indexOf(code)>=0) focusHit++; }
+  });
+  if(total<15||focusHit<5) throw new Error('incomplete rates from '+source);
+  merged.USD=1;
+  rates=merged; ratesLive=true; ratesSource=source; ratesTime=when||null;
+}
+async function fetchRates(){
+  $('#rateStatus').textContent='Fetching live rates…';
+  // Provider chain, in order: 1) open.er-api.com (primary, unchanged),
+  // 2) Frankfurter, 3) fawazahmed0 currency-api via jsDelivr.
+  // The built-in FALLBACK table is used only if all three are unreachable.
+  const attempts=[
+    async function(){
+      const d=await fetchJSON('https://open.er-api.com/v6/latest/USD');
+      if(!d||d.result==='error'||!d.rates) throw new Error('open.er-api.com: no rates');
+      return {map:d.rates, source:'ExchangeRate-API (open.er-api.com)', when:d.time_last_update_utc||('Updated '+new Date().toUTCString())};
+    },
+    async function(){
+      const d=await fetchJSON('https://api.frankfurter.dev/v1/latest?from=USD');
+      if(!d||!d.rates) throw new Error('Frankfurter: no rates');
+      return {map:d.rates, source:'Frankfurter', when:d.date?('Rates dated '+d.date):null};
+    },
+    async function(){
+      // Same fawazahmed0 dataset on two CDNs: jsDelivr first, then its Cloudflare mirror.
+      const urls=['https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json','https://latest.currency-api.pages.dev/v1/currencies/usd.json'];
+      let lastErr=null;
+      for(let i=0;i<urls.length;i++){
+        try{
+          const d=await fetchJSON(urls[i]);
+          if(!d||!d.usd) throw new Error('fawazahmed0: no rates');
+          return {map:d.usd, source:'fawazahmed0 currency-api', when:d.date?('Rates dated '+d.date):null};
+        }catch(e){ lastErr=e; }
+      }
+      throw lastErr||new Error('fawazahmed0: unreachable');
+    }
+  ];
+  for(let i=0;i<attempts.length;i++){
+    try{
+      const r=await attempts[i]();
+      applyRates(r.map,r.source,r.when);
+      $('#rateStatus').textContent='Live rates · via '+r.source+(ratesTime?' · '+ratesTime:'');
+      convert(); renderRateTable();
+      return;
+    }catch(e){ /* fall through to the next provider */ }
+  }
+  rates={...FALLBACK}; ratesLive=false; ratesSource=null; ratesTime=null;
+  $('#rateStatus').textContent='All rate sources unreachable — showing built-in fallback estimates. Tap Refresh to retry.';
+  convert(); renderRateTable();
+}
+function convert(){
+  const amtEl=$('#amt'); if(!amtEl) return;
+  const amt=parseFloat(amtEl.value||0); const from=$('#fromCur').value; const to=$('#toCur').value;
+  const inUSD = from==='USD'? amt : amt/(rates[from]||FALLBACK[from]||1);
+  const out = inUSD*(rates[to]||FALLBACK[to]||1);
+  const rate = (rates[to]/rates[from]);
+  $('#convResult').textContent=fmt(amt,from)+'  =  '+fmt(out,to);
+  $('#convMeta').textContent=(ratesLive?('Live rate · via '+ratesSource):'Built-in fallback estimate')+' • 1 '+from+' = '+rate.toLocaleString('en-US',{maximumFractionDigits:6})+' '+to+(ratesTime?' • '+ratesTime:'');
+  $('#convInverse').textContent='1 '+to+' = '+(1/rate).toLocaleString('en-US',{maximumFractionDigits:6})+' '+from;
+  $('#glanceBase').textContent=fmt(parseFloat(amtEl.value||100),from);
+  renderRateTable(inUSD);
+}
+function renderRateTable(baseUSD){
+  const amtEl=$('#amt'); if(!amtEl) return;
+  const base = baseUSD!==undefined? baseUSD : (parseFloat(amtEl.value||100)/(rates[$('#fromCur').value]||1));
+  const focus=['THB','JPY','VND','PHP','KRW','IDR','MYR','SGD'];
+  $('#rateTable').innerHTML=focus.map(code=>{const c=COUNTRIES.find(x=>x.currency===code); const val=base*(rates[code]||FALLBACK[code]); return `<div class="rate-row"><b>${c?c.flag:''} ${code}</b><span>${fmt(val,code)}<br>${c?c.name:code}</span></div>`}).join('');
+}
+
+/* NAV / HELP / SETTINGS WIRING */
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
+$('#gearBtn').addEventListener('click',()=>{ if(!state.picked){toast('Pick a country first');return} switchView('settings')});
+$('#navCountryBtn').addEventListener('click',()=>{ if(!state.picked) return; switchView('settings')});
+function openHelp(){$('#helpSheet').hidden=false}
+function closeHelp(){$('#helpSheet').hidden=true}
+$('#helpBtn').addEventListener('click',openHelp);
+$('#helpClose').addEventListener('click',closeHelp);
+$('#helpBackdrop').addEventListener('click',closeHelp);
+$('#searchInput').addEventListener('input',e=>{state.query=e.target.value; renderPhrases()});
+$('#speedSel').addEventListener('change',()=>{savedSpeed=$('#speedSel').value; savePrefs(); toast('Speed set — remembered')});
+$('#resetPrefs').addEventListener('click',()=>{ clearPrefs(); stopAudio(); state.picked=false; state.favs=new Set(); state.cat='all'; $('#tabbar').hidden=true; renderCountries(); renderCats(); renderPhrases(); switchView('picker'); toast('Forgotten — pick a country to start again'); });
+$('#testVoice').addEventListener('click',()=>{const c=country(); const sample=c.phrases.greetings[0]; speak(sample.local,c.lang)});
+$('#modalSpeak').addEventListener('click',()=>{if(modalPhrase) speak(modalPhrase.local,country().lang)});
+$('#showModal').addEventListener('click',e=>{if(e.target.id==='showModal') closeModal()});
+$('#amt').addEventListener('input',convert); $('#fromCur').addEventListener('change',convert); $('#toCur').addEventListener('change',convert);
+$('#swapBtn').addEventListener('click',()=>{const a=$('#fromCur').value; $('#fromCur').value=$('#toCur').value; $('#toCur').value=a; convert()});
+$('#refreshRates').addEventListener('click',fetchRates);
+
+// init — restore the remembered choice; picker only shows on a first visit (or after Forget)
+if(savedSpeed){ const sel=$('#speedSel'); if(sel && Array.prototype.some.call(sel.options,function(o){return o.value===savedSpeed})) sel.value=savedSpeed; }
+renderCountries(); renderCats(); renderPhrases(); populateCurrencies(); fetchRates();
+if(state.picked){ $('#tabbar').hidden=false; switchView('phrases'); setVoiceStatus('Country, favourites and speed are remembered in this browser.'); }
+
+</script>
+</body>
+</html>
